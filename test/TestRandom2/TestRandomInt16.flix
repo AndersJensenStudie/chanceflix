@@ -62,16 +62,21 @@ mod TestRandomInt16 {
         println(expected);
         println(r |> toBitVector16 |> bitVectorToString)
 
-
-    pub def getRandomInt16WithRandom05(): Unit \ IO = 
-        let b = Int8.maxValue() + 1i8;
-        let r = run {
-            Random2.RandomInt16.withBits()
-        } with handler Random2 {
-            def randomBytes(_, k) = 
-                k(Vector#{b, b})
-        };
-        let expected = b |> toBitVector |> bitVectorToString |> String.repeat(2);
-        println(expected);
-        println(r |> toBitVector16 |> bitVectorToString)
+    // basically property based testing
+    pub def getRandomInt16WithRandom05(): Unit \ IO + Random2.RandomInt8 + Assert = 
+        List.repeat(Int32.maxValue(), "hello, world")
+        |> List.forEach(_ -> 
+            let r1 = Random2.RandomInt8.randomInt8();
+            let r2 = Random2.RandomInt8.randomInt8();
+            let r = run {
+                Random2.RandomInt16.getRandomInt16WithRandom()
+            } with handler Random2 {
+                def randomBytes(_, k) = 
+                    k(Vector#{r1, r2})
+            };
+            let r1Expected = r1 |> toBitVector |> bitVectorToString;
+            let r2Expected = r2 |> toBitVector |> bitVectorToString;
+            let actual = r |> toBitVector16 |> bitVectorToString;
+            Assert.assertEq(expected = r1Expected + r2Expected, actual)
+        )
 }
