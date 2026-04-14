@@ -68,7 +68,9 @@ pub mod Random2 {
             run {
                 f(x)
             } with handler Random2 {
-                def randomInt64(k)      = k(rnd.nextLong())
+                def randomBytes(n, k) = {
+                    ???
+                }
             }
         }
 
@@ -92,7 +94,7 @@ pub mod Random2 {
             run {
                 f(x)
             } with handler Random2 {
-                def randomInt64(k)    = k(unsafe IO { rnd.nextLong() })
+                def randomBytes(_n, _k) = ??? 
             }
         }
 
