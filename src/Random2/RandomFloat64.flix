@@ -10,6 +10,6 @@ pub mod Random2.RandomFloat64 {
         run {
             f()
         } with handler RandomFloat64 {
-            def randomFloat64(k) = ???
+            def randomFloat64(k) = k(Math.Random.randomFloat64())
         }
 }
