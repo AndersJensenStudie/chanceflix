@@ -5,6 +5,7 @@ pub eff Random2 {
 
 pub mod Random2 {
     import java.util.{Random => JRandom}
+    import java.lang.{Byte => JByte}
     ///
     /// An effect used to generate a random boolean
     ///
@@ -68,7 +69,10 @@ pub mod Random2 {
             run {
                 f(x)
             } with handler Random2 {
-                def randomInt64(k)      = k(rnd.nextLong())
+                def randomBytes(n, k) = 
+                    let bytes = Vector.repeat(n, 0i8);
+                    rnd.nextBytes(bytes);
+                    k(bytes)
             }
         }
 
@@ -92,7 +96,13 @@ pub mod Random2 {
             run {
                 f(x)
             } with handler Random2 {
-                def randomInt64(k)    = k(unsafe IO { rnd.nextLong() })
+                def randomBytes(n, k) = 
+                    let b = unsafe IO { 
+                        let bytes = Vector.repeat(n, 0i8);
+                        let _ = rnd.nextBytes(bytes);
+                        bytes
+                    };
+                    k(b)
             }
         }
 
