@@ -22,5 +22,5 @@ pub mod Random2.RandomBool {
         }
 
     def getRandomBoolWithRandom(): Bool \ Math.Random = 
-        Math.Random.randomInt64() > 0i64
+        Math.Random.randomInt64() >= 0i64
 }
