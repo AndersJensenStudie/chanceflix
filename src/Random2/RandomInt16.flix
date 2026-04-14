@@ -1,15 +1,27 @@
 pub mod Random2.RandomInt16 {
-    // @DefaultHandler 
-    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - RandomInt16 - Math.Random) + IO =
-        run {
-            f()
-        } with runWithRandom
-        with Math.Random.runWithIO
+    use Random2.RandomInt16
 
-    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomInt16) + Math.Random =
+    @DefaultHandler 
+    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - RandomInt16) + IO =
         run {
             f()
         } with handler RandomInt16 {
-            def randomInt16(k) = ???
+            def randomInt16(k) = 
+                let b = run {
+                    getRandomInt16WithRandom()
+                } with Random2.runWithIO;
+                k(b)
         }
+
+    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomInt16) + Random2 =
+        run {
+            f()
+        } with handler RandomInt16 {
+            def randomInt16(k) = 
+                k(getRandomInt16WithRandom())
+        }
+
+    def getRandomInt16WithRandom(): Int16 \ Random2 = 
+        let rand = Random2.randomInt64();
+        Option.getWithDefault(0i16, Int64.tryToInt16(Int64.rightShift(rand, 16)))
 }
