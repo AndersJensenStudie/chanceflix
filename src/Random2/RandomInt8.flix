@@ -22,5 +22,5 @@ pub mod Random2.RandomInt8 {
         }
 
     def getRandomInt8WithRandom(): Int8 \ Random2 = 
-        ???
+        Option.getWithDefault(0i8, Vector.head(Random2.randomBytes(1)))
 }
