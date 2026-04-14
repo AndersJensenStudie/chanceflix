@@ -1,6 +1,10 @@
-// should be merged with Math.Random
-pub mod Random2 {
+// should be merged with Math.Random    
+pub eff Random2 {
+    def randomInt64(): Int64
+}
 
+pub mod Random2 {
+    import java.util.{Random => JRandom}
     ///
     /// An effect used to generate a random boolean
     ///
@@ -16,14 +20,14 @@ pub mod Random2 {
     }
 
     ///
-    /// An effect used to generate a random 
+    /// An effect used to generate a random 32-bit integer
     ///
     pub eff RandomInt32 {
         def randomInt32(): Int32
     }
 
     ///
-    /// An effect used to generate a random 
+    /// An effect used to generate a random 16-bit integer
     ///
     pub eff RandomInt16 {
         def randomInt16(): Int16
@@ -31,7 +35,7 @@ pub mod Random2 {
 
 
     ///
-    /// An effect used to generate a random 
+    /// An effect used to generate a random 8-bit integer
     ///
     pub eff RandomInt8 {
         def randomInt8(): Int8
@@ -39,17 +43,63 @@ pub mod Random2 {
 
 
     ///
-    /// An effect used to generate a random 
+    /// An effect used to generate a random 64-bit float
     ///
     pub eff RandomFloat64 {
         def randomFloat64(): Float64
     }
 
     ///
-    /// An effect used to generate a random 
+    /// An effect used to generate a random 32-bit float
     ///
     pub eff RandomFloat32 {
         def randomFloat32(): Float32
     }
 
+
+    ///
+    /// Handles the `Random` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Random` effect using the `IO` effects.
+    ///
+    pub def handle(f: a -> b \ ef): a -> b \ (ef - Random2) + IO =
+        x -> {
+            let rnd = new JRandom(); // Reuse Random instance.
+            run {
+                f(x)
+            } with handler Random2 {
+                def randomInt64(k)      = k(rnd.nextLong())
+            }
+        }
+
+    ///
+    /// Runs the `Random` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Random` effect using the `IO` effects.
+    ///
+    @DefaultHandler
+    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Random2) + IO = handle(f)()
+
+    ///
+    /// Runs the `Random` effect of the given function `f` from an initial seed.
+    ///
+    /// In other words, re-interprets the `Random` effect using seeded deterministic randomness.
+    ///
+    pub def handleWithSeed(seed: Int64, f: a -> b \ ef): a -> b \ ef - Random2 =
+        // Note: Given a *specific* seed, JRandom is fully deterministic (i.e. pure).
+        x -> {
+            let rnd = unsafe IO { new JRandom(seed) };
+            run {
+                f(x)
+            } with handler Random2 {
+                def randomInt64(k)    = k(unsafe IO { rnd.nextLong() })
+            }
+        }
+
+    ///
+    /// Runs the `Random` effect of the given function `f` from an initial seed.
+    ///
+    /// In other words, re-interprets the `Random` effect using seeded deterministic randomness.
+    ///
+    pub def runWithSeed(seed: Int64, f: Unit -> a \ ef): a \ ef - Random2 = handleWithSeed(seed, f)()
 }
