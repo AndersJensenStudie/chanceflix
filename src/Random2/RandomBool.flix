@@ -1,13 +1,9 @@
-eff RandomBool {
-    def randomBool(): Bool
-}
-
-mod RandomBool {
+pub mod Random2.RandomBool {
     // @DefaultHandler 
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - RandomBool - Math.Random) + IO =
         run {
             f()
-        } with RandomBool.runWithRandom
+        } with runWithRandom
         with Math.Random.runWithIO
 
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomBool) + Math.Random =
