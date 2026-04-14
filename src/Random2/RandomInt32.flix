@@ -9,11 +9,11 @@ pub mod Random2.RandomInt32 {
             def randomInt32(k) = 
                 let b = run {
                     getRandomInt32WithRandom()
-                } with Math.Random.runWithIO;
+                } with Random2.runWithIO;
                 k(b)
         }
 
-    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomInt32) + Math.Random =
+    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomInt32) + Random2 =
         run {
             f()
         } with handler RandomInt32 {
@@ -21,7 +21,7 @@ pub mod Random2.RandomInt32 {
                 k(getRandomInt32WithRandom())
         }
 
-    def getRandomInt32WithRandom(): Int32 \ Math.Random = 
-        let rand = Math.Random.randomInt64();
+    def getRandomInt32WithRandom(): Int32 \ Random2 = 
+        let rand = Random2.randomInt64();
         Option.getWithDefault(0, Int64.tryToInt32(Int64.rightShift(rand, 32)))
 }

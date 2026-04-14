@@ -9,11 +9,11 @@ pub mod Random2.RandomBool {
             def randomBool(k) = 
                 let b = run {
                     getRandomBoolWithRandom()
-                } with Math.Random.runWithIO;
+                } with Random2.runWithIO;
                 k(b)
         }
 
-    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomBool) + Math.Random =
+    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - RandomBool) + Random2 =
         run {
             f()
         } with handler RandomBool {
@@ -21,6 +21,6 @@ pub mod Random2.RandomBool {
                 k(getRandomBoolWithRandom())
         }
 
-    def getRandomBoolWithRandom(): Bool \ Math.Random = 
-        Math.Random.randomInt64() >= 0i64
+    def getRandomBoolWithRandom(): Bool \ Random2 = 
+        Random2.randomInt64() >= 0i64
 }
