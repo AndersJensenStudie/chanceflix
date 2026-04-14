@@ -22,6 +22,5 @@ pub mod Random2.RandomInt8 {
         }
 
     def getRandomInt8WithRandom(): Int8 \ Random2 = 
-        let rand = Random2.randomInt64();
-        Option.getWithDefault(0i8, Int64.tryToInt8(Int64.rightShift(rand, 16)))
+        ???
 }

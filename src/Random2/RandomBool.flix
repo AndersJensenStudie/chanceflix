@@ -22,5 +22,5 @@ pub mod Random2.RandomBool {
         }
 
     def getRandomBoolWithRandom(): Bool \ Random2 = 
-        Random2.randomInt64() >= 0i64
+        ???
 }

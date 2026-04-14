@@ -22,6 +22,5 @@ pub mod Random2.RandomInt16 {
         }
 
     def getRandomInt16WithRandom(): Int16 \ Random2 = 
-        let rand = Random2.randomInt64();
-        Option.getWithDefault(0i16, Int64.tryToInt16(Int64.rightShift(rand, 16)))
+        ???
 }

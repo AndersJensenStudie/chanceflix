@@ -22,6 +22,5 @@ pub mod Random2.RandomInt32 {
         }
 
     def getRandomInt32WithRandom(): Int32 \ Random2 = 
-        let rand = Random2.randomInt64();
-        Option.getWithDefault(0, Int64.tryToInt32(Int64.rightShift(rand, 32)))
+        ???
 }
