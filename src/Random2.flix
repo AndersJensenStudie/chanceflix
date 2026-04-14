@@ -1,6 +1,6 @@
 // should be merged with Math.Random    
 pub eff Random2 {
-    def randomInt64(): Int64
+    def randomBytes(n : Int32): Vector[Int8]
 }
 
 pub mod Random2 {
