@@ -22,5 +22,6 @@ pub mod Random2.RandomBool {
         }
 
     def getRandomBoolWithRandom(): Bool \ Random2 = 
-        ???
+        let byte = Random2.randomBytes(1) |> Vector.head |> Option.getWithDefault(unreachable!());
+        (Int8.getBit(pos = 0, byte) == 1)
 }
