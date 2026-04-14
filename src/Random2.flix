@@ -5,7 +5,6 @@ pub eff Random2 {
 
 pub mod Random2 {
     import java.util.{Random => JRandom}
-    import java.lang.{Byte => JByte}
     ///
     /// An effect used to generate a random boolean
     ///
