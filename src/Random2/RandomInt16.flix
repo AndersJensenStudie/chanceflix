@@ -22,10 +22,9 @@ pub mod Random2.RandomInt16 {
         }
 
     pub def getRandomInt16WithRandom(): Int16 \ Random2 = 
-        let bytes = Random2.randomBytes(2);
         let b = Vector.flatten(Vector#{
-            bytes |> Vector.head |> Option.getWithDefault(0i8) |> toBitVector,
-            bytes |> Vector.nth(1) |> Option.getWithDefault(0i8) |> toBitVector
+            Random2.randomByte() |> toBitVector,
+            Random2.randomByte() |> toBitVector
         });
         Vector.foldLeft(acc -> v -> 
             let shifted = Int16.leftShift(acc, 1);

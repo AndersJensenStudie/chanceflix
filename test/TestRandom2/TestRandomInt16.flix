@@ -19,8 +19,8 @@ mod TestRandomInt16 {
         let r = run {
             Random2.RandomInt16.getRandomInt16WithRandom()
         } with handler Random2 {
-            def randomBytes(_, k) = 
-                k(Vector#{-1i8, -1i8})
+            def randomByte(k) = 
+                k(-1i8)
         };
         let expected = -1i8 |> toBitVector |> bitVectorToString |> String.repeat(2);
         println(expected);
@@ -31,8 +31,8 @@ mod TestRandomInt16 {
         let r = run {
             Random2.RandomInt16.getRandomInt16WithRandom()
         } with handler Random2 {
-            def randomBytes(_, k) = 
-                k(Vector#{0i8, 0i8})
+            def randomByte(k) = 
+                k(0i8)
         };
         let expected = 0i8 |> toBitVector |> bitVectorToString |> String.repeat(2);
         println(expected);
@@ -43,8 +43,8 @@ mod TestRandomInt16 {
         let r = run {
             Random2.RandomInt16.getRandomInt16WithRandom()
         } with handler Random2 {
-            def randomBytes(_, k) = 
-                k(Vector#{b, b})
+            def randomByte(k) = 
+                k(b)
         };
         let expected = b |> toBitVector |> bitVectorToString |> String.repeat(2);
         println(expected);
@@ -55,8 +55,8 @@ mod TestRandomInt16 {
         let r = run {
             Random2.RandomInt16.getRandomInt16WithRandom()
         } with handler Random2 {
-            def randomBytes(_, k) = 
-                k(Vector#{b, b})
+            def randomByte(k) = 
+                k(b)
         };
         let expected = b |> toBitVector |> bitVectorToString |> String.repeat(2);
         println(expected);
@@ -71,8 +71,8 @@ mod TestRandomInt16 {
             let r = run {
                 Random2.RandomInt16.getRandomInt16WithRandom()
             } with handler Random2 {
-                def randomBytes(_, k) = 
-                    k(Vector#{r1, r2})
+                def randomByte(k) = 
+                    k(r2)
             };
             let r1Expected = r1 |> toBitVector |> bitVectorToString;
             let r2Expected = r2 |> toBitVector |> bitVectorToString;

@@ -1,6 +1,6 @@
 // should be merged with Math.Random    
 pub eff Random2 {
-    def randomBytes(n : Int32): Vector[Int8]
+    def randomByte(): Int8
 }
 
 pub mod Random2 {
@@ -56,6 +56,9 @@ pub mod Random2 {
         def randomFloat32(): Float32
     }
 
+    pub def randomBytes(n: Int32): Vector[Int8] \ Random2 = 
+        Vector.repeat(n, 0i8)
+        |> Vector.map(_ -> Random2.randomByte()) 
 
     ///
     /// Handles the `Random` effect of the given function `f`.
@@ -68,10 +71,11 @@ pub mod Random2 {
             run {
                 f(x)
             } with handler Random2 {
-                def randomBytes(n, k) = 
-                    let bytes = Vector.repeat(n, 0i8);
+                def randomByte(k) = 
+                    let bytes = Vector#{0i8};
                     rnd.nextBytes(bytes);
-                    k(bytes)
+                    let b = Option.getWithDefault(0i8, Vector.head(bytes));
+                    k(b)
             }
         }
 
@@ -95,11 +99,11 @@ pub mod Random2 {
             run {
                 f(x)
             } with handler Random2 {
-                def randomBytes(n, k) = 
+                def randomByte(k) = 
                     let b = unsafe IO { 
-                        let bytes = Vector.repeat(n, 0i8);
-                        let _ = rnd.nextBytes(bytes);
-                        bytes
+                        let bytes = Vector#{0i8};
+                        rnd.nextBytes(bytes);
+                        Option.getWithDefault(0i8, Vector.head(bytes))
                     };
                     k(b)
             }
