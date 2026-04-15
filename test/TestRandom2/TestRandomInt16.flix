@@ -8,7 +8,7 @@ mod TestRandomInt16 {
         } with RandomInt16.runWithRandom
         with handler Random2 {
             def randomByte(_n, k) = 
-                k(0i8)
+                k(-1i8) //just give (1,1,1,1,1,1,1,1) both times
         };
-        Assert.assertEq(expected = -1i16, r)
+        Assert.assertEq(expected = -1i16, r) //Should give (1,1,1,1,1,1,1,1,1)x2
 }

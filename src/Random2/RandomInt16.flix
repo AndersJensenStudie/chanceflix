@@ -22,10 +22,9 @@ pub mod Random2.RandomInt16 {
         }
 
     def getRandomInt16WithRandom(): Int16 \ Random2 = 
-        let bytes = Random2.randomBytes(2);
-        let b1 = Vector.head(bytes) |> Option.getWithDefault(0i8);
-        let b2 = Vector.nth(1, bytes) |> Option.getWithDefault(0i8);
-        let b2shifted = Int16.leftShift(Int8.toInt16(b2), 8);
-        let b1int16 = Int8.toInt16(b1) |> (s) -> Int16.bitwiseAnd(s, 255i16); 
-        Int16.bitwiseOr(b1int16, b2shifted)
+        Random2.randomBytes(2)
+        |> Vector.map(Int8.toInt16 >> Int16.bitwiseAnd(255i16))
+        |> (tmp) -> Vector.zip(Vector.range(0, Vector.length(tmp)), tmp)
+        |> Vector.map(match (i, b) -> Int16.leftShift(b, i * 8))
+        |> Vector.foldLeft(Int16.bitwiseOr, 0i16)
 }
