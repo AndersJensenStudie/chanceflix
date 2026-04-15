@@ -5,6 +5,7 @@ pub eff Random2 {
 
 pub mod Random2 {
     import java.util.{Random => JRandom}
+    import java.security.{SecureRandom => JSecureRandom}
     ///
     /// An effect used to generate a random boolean
     ///
@@ -115,4 +116,31 @@ pub mod Random2 {
     /// In other words, re-interprets the `Random` effect using seeded deterministic randomness.
     ///
     pub def runWithSeed(seed: Int64, f: Unit -> a \ ef): a \ ef - Random2 = handleWithSeed(seed, f)()
+
+
+    ///
+    /// Handles the `Random` effect of the given function `f` using the java `SecureRandom`-class
+    ///
+    /// May block while entropy is gathered for seed. 
+    ///
+    pub def handleWithSecureRandom(f: a -> b \ ef): a -> b \ (ef - Random2) + IO =
+        x -> {
+            let rnd = new JSecureRandom();
+            run {
+                f(x)
+            } with handler Random2 {
+                def randomByte(k) = 
+                    let bytes = Vector#{0i8};
+                    rnd.nextBytes(bytes);
+                    let b = Option.getWithDefault(0i8, Vector.head(bytes));
+                    k(b)
+            }
+        }
+
+    ///
+    /// runs the `Random` effect of the given function `f` using the java `SecureRandom`-class
+    ///
+    /// May block while entropy is gathered for seed. 
+    ///
+    pub def runWithSecureRandom(f: Unit -> a \ ef): a \ (ef - Random2) + IO = handleWithSecureRandom(f)() 
 }
