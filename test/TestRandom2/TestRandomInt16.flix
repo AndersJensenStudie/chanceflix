@@ -1,4 +1,5 @@
 mod TestRandomInt16 {
+    use TestRandomInt16.twoValues
     def toBitVector(i: Int8): Vector[Bool] = 
         List.range(0, 8) 
         |> List.map(x -> Int8.getBit(pos = 7 - x, i))
@@ -64,19 +65,33 @@ mod TestRandomInt16 {
 
     // basically property based testing
     pub def getRandomInt16WithRandom05(): Unit \ IO + Random2.RandomInt8 + Assert = 
-        List.repeat(Int32.maxValue(), "hello, world")
-        |> List.forEach(_ -> 
-            let r1 = Random2.RandomInt8.randomInt8();
-            let r2 = Random2.RandomInt8.randomInt8();
-            let r = run {
-                Random2.RandomInt16.getRandomInt16WithRandom()
-            } with handler Random2 {
-                def randomByte(k) = 
-                    k(r2)
+        region rc {
+            List.repeat(Int32.maxValue(), "hello, world")
+            |> List.forEach(_ -> 
+                let r1 = Random2.RandomInt8.randomInt8();
+                let r2 = Random2.RandomInt8.randomInt8();
+                let f = twoValues(r1, r2, rc);
+                let r = run {
+                    Random2.RandomInt16.getRandomInt16WithRandom()
+                } with handler Random2 {
+                    def randomByte(k) = 
+                        k(f())
+                };
+                let r1Expected = r1 |> toBitVector |> bitVectorToString;
+                let r2Expected = r2 |> toBitVector |> bitVectorToString;
+                let actual = r |> toBitVector16 |> bitVectorToString;
+                Assert.assertEq(expected = r1Expected + r2Expected, actual)
+            )
+        }
+
+    pub def twoValues(r1: a, r2: a, rc: Region[r]): (Unit -> a \ r) \ r with Eq[a] = 
+        let ref = Ref.fresh(rc, r1);
+        () ->  
+            let ret = Ref.get(ref);
+            if (ret == r1) {
+                Ref.put(r2, ref)
+            } else {
+                Ref.put(r1, ref)
             };
-            let r1Expected = r1 |> toBitVector |> bitVectorToString;
-            let r2Expected = r2 |> toBitVector |> bitVectorToString;
-            let actual = r |> toBitVector16 |> bitVectorToString;
-            Assert.assertEq(expected = r1Expected + r2Expected, actual)
-        )
+            ret
 }
