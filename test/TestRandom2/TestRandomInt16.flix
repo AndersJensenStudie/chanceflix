@@ -7,8 +7,8 @@ mod TestRandomInt16 {
             RandomInt16.randomInt16()
         } with RandomInt16.runWithRandom
         with handler Random2 {
-            def randomBytes(_n, k) = 
-                k(Vector#{-1i8, -1i8})
+            def randomByte(_n, k) = 
+                k(0i8)
         };
         Assert.assertEq(expected = -1i16, r)
 }
