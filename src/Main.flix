@@ -14,11 +14,5 @@ def printbits32(x: Int32): Unit \ IO =
     let map = List.map((i) -> Int32.getBit(pos = i, x), List.reverse(List.range(0, 32)));
     println(map)
 
-def conv2xi8toi16(x: Int8, y: Int8): Int16 =
-    List.foldLeft(acc -> (i) -> {
-        if (i < 8) {???}; ???
-    }, 0i16, List.reverse(List.range(0, 16)))
-
-
 def main(): Unit \ IO =
     println("Hello")
