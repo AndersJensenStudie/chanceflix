@@ -19,7 +19,7 @@ mod TestRandomFloat32 {
 
     @Test
     pub def testGetRandomFloat32_2(): Unit \ Assert + IO = 
-        region rc{
+        region rc {
             run {
                 let n = 2000;
                 let buckets = Array.repeat(rc, 10, 0);

@@ -18,7 +18,7 @@ mod TestRandomFloat64 {
         with Random2.runWithIO
     @Test
     pub def testGetRandomFloat64_2(): Unit \ Assert + IO = 
-        region rc{
+        region rc {
             run {
                 let n = 2000;
                 let buckets = Array.repeat(rc, 10, 0);
