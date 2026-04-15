@@ -32,9 +32,8 @@ pub mod Random2.RandomInt16 {
         , 0i16, b)
 
     def toBitVector(i: Int8): Vector[Bool] = 
-        List.range(0, 8) 
-        |> List.map(x -> Int8.getBit(pos = 7 - x, i))
-        |> List.map(x -> if (x == 1) true else false)
-        |> List.toVector
+        Vector.range(0, 8) 
+        |> Vector.map(x -> Int8.getBit(pos = 7 - x, i))
+        |> Vector.map(x -> if (x == 1) true else false)
 
 }
