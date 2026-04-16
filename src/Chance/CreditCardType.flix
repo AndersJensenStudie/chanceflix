@@ -94,6 +94,15 @@ pub mod Chance.CreditCardType {
                 k(t)
         }
 
+    pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Random2.RandomInt32 = 
+        run {
+            f()
+        } with handler Chance.CreditCardType {
+            def creditCardType(k) = 
+                let n = getType();
+                k(n)
+        }
+
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Random2 =
         run {
             f()
