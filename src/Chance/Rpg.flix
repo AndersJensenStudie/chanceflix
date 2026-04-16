@@ -16,7 +16,7 @@ pub mod Chance.Rpg {
                 }
             }
         }
-
+    @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Rpg) + IO = 
         run {
             f()

@@ -1,12 +1,20 @@
 pub mod Chance {
     use Chance.unique
+    // Effect definitions
     pub eff Dice {
         def roll(sides: Int32): Int32
     }
+    
     pub eff Rpg {
         def rpg(str: String, sum: Bool): List[Int32]
     }
+    
+    pub eff Guid {
+        def guid(): String
+    }
 
+
+    // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
         if (i <= 0) {
             Nil
