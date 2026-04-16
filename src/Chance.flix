@@ -13,6 +13,13 @@ pub mod Chance {
         def guid(): String
     }
 
+    pub eff RString {
+        def rString(min: {min = Int32}, max: {max = Int32}, pool: String): String
+    }
+
+    pub eff RChar {
+        def rChar(pool: String): Char
+    }
 
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
