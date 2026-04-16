@@ -22,6 +22,10 @@ pub mod Random2.RandomInt32 {
                 k(getRandomInt32WithRandom())
         }
 
+    pub def randomInts(n: Int32): List[Int32] \ RandomInt32 = 
+        List.range(0, n)
+        |> List.map(_ -> RandomInt32.randomInt32())
+
     def getRandomInt32WithRandom(): Int32 \ Random2 = 
         Random2.randomBytes(4)
         |> Vector.map(Int8.toInt32 >> Int32.bitwiseAnd(255))
