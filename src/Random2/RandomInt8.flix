@@ -29,7 +29,7 @@ pub mod Random2.RandomInt8 {
             0i8
         } else {
             let a_ = Int8.toInt16(a);
-            let k = Int8.toInt16(b) - a_ + 1i16;
+            let k = Int8.toInt16(b) - a_;
             let m = 2i16 * (Int8.toInt16(Int8.maxValue()) + 1i16);
             let limit = m - Int16.modulo(m, k);
             def rec(): Int8 = {
