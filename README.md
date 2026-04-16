@@ -28,7 +28,7 @@ Missing stuff from chance:
 * [ ] Currency and currencypair
 * [ ] Coin
 * [X] Dice (all of them)
-* [ ] Rpg
+* [X] Rpg
 * [ ] GUID
 * [ ] Hash
 * [ ] "n" + Unique
