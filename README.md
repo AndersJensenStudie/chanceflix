@@ -1,6 +1,7 @@
 # Chanceflix
 Måske shuffle effekten
-
+Todo:
+* [] Make handler for all substeps of entropy chain in **ALL** chance effects
 
 Missing stuff from chance:
 * [X] Pick
@@ -34,6 +35,7 @@ Missing stuff from chance:
 * [X] "n" + Unique
 * [ ] Number Distributions
 * [ ] Mixin
+* [x] String + Char
 
 
 ### Maybies
