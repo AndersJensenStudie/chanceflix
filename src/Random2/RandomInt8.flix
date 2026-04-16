@@ -23,4 +23,23 @@ pub mod Random2.RandomInt8 {
 
     def getRandomInt8WithRandom(): Int8 \ Random2 = 
         Random2.randomByte()
+
+    pub def randRange(a: Int8, b: Int8): Int8 \ RandomInt8 = 
+        if (b <= a) {
+            0i8
+        } else {
+            let a_ = Int8.toInt16(a);
+            let k = Int8.toInt16(b) - a_ + 1i16;
+            let m = 2i16 * (Int8.toInt16(Int8.maxValue()) + 1i16);
+            let limit = m - Int16.modulo(m, k);
+            def rec(): Int8 = {
+                let r = Int8.toInt16(Random2.RandomInt8.randomInt8()) + (m / 2i16);
+                if (r >= limit) {
+                    rec()
+                } else {
+                    Int16.clampToInt8(min = a, max = b, (a_ + (Int16.modulo(r, k))))
+                }
+            };
+            rec()
+        }
 } 
