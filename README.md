@@ -3,37 +3,37 @@ Måske shuffle effekten
 
 
 Missing stuff from chance:
-* Pick
-* Phone with country codes etc
-* Age
-* Birthday
-* Name
-* Gender
-* Ssn
-* suffix
-* prefix
-* Animal
-* (androidid)
-* Domain
-* Color (rbg, richstring)
-* email
-* IPv4
-* IPv6
-* Profession
-* Prime number
-* Tld
-* Time
-* Creditcard number
-* Creditcard type
-* Currency and currencypair
-* Coin
-* Dice (all of them)
-* Rpg
-* GUID
-* Hash
-* "n" + Unique
-* Number Distributions
-* Mixin
+* [X] Pick
+* [ ] Phone with country codes etc
+* [ ] Age
+* [ ] Birthday
+* [ ] Name
+* [ ] Gender
+* [ ] Ssn
+* [ ] suffix
+* [ ] prefix
+* [ ] Animal
+* [ ] (androidid)
+* [ ] Domain
+* [ ] Color (rbg, richstring)
+* [ ] email
+* [ ] IPv4
+* [ ] IPv6
+* [ ] Profession
+* [ ] Prime number
+* [ ] Tld
+* [ ] Time
+* [ ] Creditcard number
+* [ ] Creditcard type
+* [ ] Currency and currencypair
+* [ ] Coin
+* [ ] Dice (all of them)
+* [ ] Rpg
+* [ ] GUID
+* [ ] Hash
+* [ ] "n" + Unique
+* [ ] Number Distributions
+* [ ] Mixin
 
 
 ### Maybies
