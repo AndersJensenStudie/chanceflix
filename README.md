@@ -27,7 +27,7 @@ Missing stuff from chance:
 * [ ] Creditcard type
 * [ ] Currency and currencypair
 * [ ] Coin
-* [ ] Dice (all of them)
+* [X] Dice (all of them)
 * [ ] Rpg
 * [ ] GUID
 * [ ] Hash
