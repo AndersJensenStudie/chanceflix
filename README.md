@@ -29,7 +29,7 @@ Missing stuff from chance:
 * [ ] Coin
 * [X] Dice (all of them)
 * [X] Rpg
-* [ ] GUID
+* [X] GUID
 * [ ] Hash
 * [X] "n" + Unique
 * [ ] Number Distributions
