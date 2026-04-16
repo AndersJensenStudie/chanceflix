@@ -31,7 +31,7 @@ Missing stuff from chance:
 * [X] Rpg
 * [ ] GUID
 * [ ] Hash
-* [ ] "n" + Unique
+* [X] "n" + Unique
 * [ ] Number Distributions
 * [ ] Mixin
 
