@@ -28,4 +28,23 @@ pub mod Random2.RandomInt32 {
         |> (tmp) -> Vector.zip(Vector.range(0, Vector.length(tmp)), tmp) 
         |> Vector.map(match (i, b) -> Int32.leftShift(b, i * 8))
         |> Vector.foldLeft(Int32.bitwiseOr, 0)
+
+    pub def randRange(a: Int32, b: Int32): Int32 \ RandomInt32 = 
+        if (b <= a) {
+            0i32
+        } else {
+            let a_ = Int32.toInt64(a);
+            let k = Int32.toInt64(b) - a_ + 1i64;
+            let m = 2i64 * (Int32.toInt64(Int32.maxValue()) + 1i64);
+            let limit = m - Int64.modulo(m, k);
+            def rec(): Int32 = {
+                let r = Int32.toInt64(Random2.RandomInt32.randomInt32()) + (m / 2i64);
+                if (r >= limit) {
+                    rec()
+                } else {
+                    Int64.clampToInt32(min = a, max = b, (a_ + (Int64.modulo(r, k))))
+                }
+            };
+            rec()
+        }
 }

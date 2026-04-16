@@ -27,4 +27,24 @@ pub mod Random2.RandomInt16 {
         |> (tmp) -> Vector.zip(Vector.range(0, Vector.length(tmp)), tmp)
         |> Vector.map(match (i, b) -> Int16.leftShift(b, i * 8))
         |> Vector.foldLeft(Int16.bitwiseOr, 0i16)
+
+    pub def randRange(a: Int16, b: Int16): Int16 \ RandomInt16 = 
+        if (b <= a) {
+            0i16
+        } else {
+            let a_ = Int16.toInt32(a);
+            let k = Int16.toInt32(b) - a_ + 1i32;
+            let m = 2i32 * (Int16.toInt32(Int16.maxValue()) + 1i32);
+            let limit = m - Int32.modulo(m, k);
+            def rec(): Int16 = {
+                let r = Int16.toInt32(Random2.RandomInt16.randomInt16()) + (m / 2i32);
+                if (r >= limit) {
+                    rec()
+                } else {
+                    Int32.clampToInt16(min = a, max = b, (a_ + (Int32.modulo(r, k))))
+                }
+            };
+            rec()
+        }
+        
 }
