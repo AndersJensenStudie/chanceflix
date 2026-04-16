@@ -28,4 +28,8 @@ pub mod Random2.RandomFloat64 {
         let ibit53 = Int64.logicalRightShift(dist = 64-53, i64fromrandom); // get the top 53 bits
         let f = Int64.toFloat64(ibit53);
         f * recip_bpf
+
+    pub def randRange(a: Float64, b: Float64): Float64 \ RandomFloat64 = 
+        let r = RandomFloat64.randomFloat64();
+        a + (r * (b - a))
 }

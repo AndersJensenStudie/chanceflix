@@ -28,4 +28,8 @@ pub mod Random2.RandomFloat32 {
         let ibit24 = Int32.logicalRightShift(dist = 32-24, i32fromrandom); // get the top 24 bits
         let f = Int32.toFloat32(ibit24);
         f * recip_bpf
+
+    pub def randRange(a: Float32, b: Float32): Float32 \ RandomFloat32 = 
+        let r = RandomFloat32.randomFloat32();
+        a + (r * (b - a))
 }
