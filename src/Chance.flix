@@ -1,5 +1,6 @@
 pub mod Chance {
     use Chance.unique
+    use Chance.CreditCardType.CreditCardType
     // Effect definitions
     pub eff Dice {
         def roll(sides: Int32): Int32
@@ -35,4 +36,23 @@ pub mod Chance {
                 x :: rest
             }
         }
+
+    ///
+    /// An effect used to generate a random credit card number of type `tp`.
+    ///
+    /// The resulting card will be of correct length and pass Luhns Algorithm
+    ///
+    pub eff CreditCardNo {
+        def creditCardNo(tp: CreditCardType): String
+    }
+
+    pub eff CreditCardType {
+        def creditCardType(): CreditCardType
+    }
+
+    pub eff CreditCard {
+        def creditCardNo(tp: CreditCardType): String
+        def creditCardType(): CreditCardType
+    }
+
 }
