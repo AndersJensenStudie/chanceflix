@@ -57,6 +57,13 @@ pub mod Random2 {
         def randomFloat32(): Float32
     }
 
+    ///
+    /// An effect used to generate a random Unit-value
+    ///
+    pub eff RandomUnit {
+        def randomUnit(): Unit
+    }
+
     pub def randomBytes(n: Int32): Vector[Int8] \ Random2 = 
         Vector.repeat(n, 0i8)
         |> Vector.map(_ -> Random2.randomByte()) 
