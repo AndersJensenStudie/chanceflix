@@ -1,4 +1,6 @@
 pub mod Util {
+    import java.lang.{Math => JMath}
+
     pub def toDigits(i: Int32): List[Int32] = 
         def rec(acc: List[Int32], x: Int32): List[Int32] = 
             if (x == 0) {
@@ -16,4 +18,14 @@ pub mod Util {
                 case x :: xs => rec(x * 10 + acc, xs)
             };
         rec(0, ls)
+
+    pub def log(x: Float64): Float64 = 
+        unsafe IO {
+            JMath.log(x)
+        }
+
+    pub def sqrt(x: Float64): Float64 = 
+        unsafe IO {
+            JMath.sqrt(x)
+        }
 }

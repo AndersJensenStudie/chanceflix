@@ -74,4 +74,8 @@ pub mod Chance {
         def hash(length: Int32, isUpperCase: Bool): String
     }
 
+    pub eff Normal {
+        def normal(mean: Float64, dev: Float64): Float64 
+    }
+
 }
