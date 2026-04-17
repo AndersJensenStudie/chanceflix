@@ -14,10 +14,17 @@ pub mod Chance.Phone {
         case "US" => (if (fmt) "(###) ###-####" else "##########", "+1")
         case "UK" => (if (fmt) "07### ######" else "07##########", "+44")
         case "DK" => (if (fmt) "## ## ## ##" else "########", "+45")
-        case "DE" => (if (fmt) "0### ### ####" else "############", "+49")
+        case "DE" => (if (fmt) "0### ### ####" else "0##########", "+49")
         case "FR" => (if (fmt) "0# ## ## ## ##" else "0#########", "+33")
+        case "JP" => (if (fmt) "0# #### ####" else "0##########", "+81")
+        case "AU" => (if (fmt) "04## ### ###" else "04########", "+61")
+        case "IN" => (if (fmt) "##### #####" else "##########", "+91")
+        case "BR" => (if (fmt) "(##) #####-####" else "###########", "+55")
+        case "ES" => (if (fmt) "### ## ## ##" else "#########", "+34")
         case _ => getFmt("US", fmt, cc)
     }
+
+
 
     def replaceHash(fmt: String): String \ RandomInt32 =
         fmt |> String.map(c -> {
