@@ -3,6 +3,10 @@ pub mod Chance.Pool {
     
     pub def alphaPool(): String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+    pub def upperHexPool(): String = "1234567890ABCDEF"
+
+    pub def lowerHexPool(): String = "1234567890abcdef"
+
     def isAlpha(c: Char): Bool = 
         String.exists(x -> x == c, alphaPool())
 

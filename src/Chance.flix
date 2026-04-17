@@ -66,4 +66,8 @@ pub mod Chance {
         def creditCardType(): CreditCardType
     }
 
+    pub eff Hash {
+        def hash(length: Int32, isUpperCase: Bool): String
+    }
+
 }
