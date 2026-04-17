@@ -22,7 +22,7 @@ Missing stuff from chance:
 * [ ] IPv6
 * [ ] Profession
 * [ ] Prime number
-* [ ] Tld
+* [X] Tld
 * [ ] Time
 * [ ] Creditcard number
 * [ ] Creditcard type

@@ -1,5 +1,4 @@
 pub mod Chance.Pool {
-    use Chance.RString
     pub def defaultPool(): String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()[]"
     
     pub def alphaPool(): String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
