@@ -24,14 +24,14 @@ Missing stuff from chance:
 * [ ] Prime number
 * [X] Tld
 * [ ] Time
-* [ ] Creditcard number
-* [ ] Creditcard type
+* [X] Creditcard number
+* [X] Creditcard type
 * [ ] Currency and currencypair
 * [ ] Coin
 * [X] Dice (all of them)
 * [X] Rpg
 * [X] GUID
-* [ ] Hash
+* [X] Hash
 * [X] "n" + Unique
 * [ ] Number Distributions
 * [ ] Mixin
