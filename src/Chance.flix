@@ -78,4 +78,13 @@ pub mod Chance {
         def normal(mean: Float64, dev: Float64): Float64 
     }
 
+    ///
+    /// An effect used to generate a random int in {0, 1}.
+    /// Gives 1 with probability `p`.
+    /// A `p` larger than 1 guarantees the result will be 1. A `p` smaller than 0 guarantees 0.
+    ///
+    pub eff Bernoulli {
+        def bernoulli(p: Float64): Int32
+    }
+
 }

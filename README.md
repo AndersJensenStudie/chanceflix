@@ -34,6 +34,10 @@ Missing stuff from chance:
 * [X] Hash
 * [X] "n" + Unique
 * [ ] Number Distributions
+    * [X] Normal
+    * [X] Bernoulli
+    * [ ] Binomial
+    * [ ] Poisson
 * [ ] Mixin
 * [x] String + Char
 
