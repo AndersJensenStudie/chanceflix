@@ -26,6 +26,10 @@ pub mod Chance {
         def rTld(pool: Vector[String]): String
     }
 
+    pub eff Phone {
+        def rPhone(country: String, fmt: Bool, cc: Bool): String
+    }
+
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
         if (i <= 0) {
