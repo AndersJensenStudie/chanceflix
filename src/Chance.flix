@@ -21,6 +21,10 @@ pub mod Chance {
     pub eff RChar {
         def rChar(pool: String): Char
     }
+    
+    pub eff Tld {
+        def rTld(pool: Vector[String]): String
+    }
 
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
