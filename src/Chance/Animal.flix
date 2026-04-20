@@ -32,7 +32,7 @@ pub mod Chance.Animal {
 
     pub def animals(): Map[String, List[String]] = 
         Map#{
-            "ocean" => List#{"Fish", "Shark", "Dolphin", "Whale", "Octopus", "Jellyfish", "Crab", "Lobster", "Starfish", "Seahorse"},
+            "ocean" => List#{"fish", "shark", "dolphin", "whale", "octopus", "jellyfish", "crab", "lobster", "starfish", "seahorse"},
             "desert" => List#{"camel", "scorpion", "lizard", "snake", "meerkat", "coyote", "vulture", "armadillo", "roadrunner"},
             "grassland" => List#{"bison", "antelope", "prairie dog", "badger", "coyote", "fox", "rattlesnake", "hawk", "eagle"},
             "forest" => List#{"deer", "bear", "wolf", "fox", "squirrel", "raccoon", "owl", "woodpecker", "skunk"},
