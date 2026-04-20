@@ -25,7 +25,7 @@ pub mod Random2.RandomInt64 {
             0i64
         } else {
             let a_ = Int64.toBigInt(a);
-            let k = Int64.toBigInt(b) - a_ + 1ii;
+            let k = Int64.toBigInt(b) - a_;
             let m = 2ii * (Int64.toBigInt(Int64.maxValue()) + 1ii);
             let limit = m - BigInt.modulo(m, k);
             def rec(): Int64 = {

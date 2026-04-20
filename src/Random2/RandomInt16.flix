@@ -33,7 +33,7 @@ pub mod Random2.RandomInt16 {
             0i16
         } else {
             let a_ = Int16.toInt32(a);
-            let k = Int16.toInt32(b) - a_ + 1i32;
+            let k = Int16.toInt32(b) - a_;
             let m = 2i32 * (Int16.toInt32(Int16.maxValue()) + 1i32);
             let limit = m - Int32.modulo(m, k);
             def rec(): Int16 = {

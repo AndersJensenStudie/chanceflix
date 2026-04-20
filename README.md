@@ -1,18 +1,19 @@
 # Chanceflix
 Måske shuffle effekten
-
+Todo:
+* [] Make handler for all substeps of entropy chain in **ALL** chance effects
 
 Missing stuff from chance:
 * [X] Pick
-* [ ] Phone with country codes etc
-* [ ] Age
+* [X] Phone with country codes etc
+* [X] Age
 * [ ] Birthday
 * [ ] Name
 * [ ] Gender
 * [ ] Ssn
 * [ ] suffix
 * [ ] prefix
-* [ ] Animal
+* [X] Animal
 * [ ] (androidid)
 * [ ] Domain
 * [ ] Color (rbg, richstring)
@@ -21,19 +22,24 @@ Missing stuff from chance:
 * [ ] IPv6
 * [ ] Profession
 * [ ] Prime number
-* [ ] Tld
+* [X] Tld
 * [ ] Time
-* [ ] Creditcard number
-* [ ] Creditcard type
+* [X] Creditcard number
+* [X] Creditcard type
 * [ ] Currency and currencypair
 * [X] Coin
-* [ ] Dice (all of them)
-* [ ] Rpg
-* [ ] GUID
-* [ ] Hash
-* [ ] "n" + Unique
+* [X] Dice (all of them)
+* [X] Rpg
+* [X] GUID
+* [X] Hash
+* [X] "n" + Unique
 * [ ] Number Distributions
+    * [X] Normal
+    * [X] Bernoulli
+    * [ ] Binomial
+    * [ ] Poisson
 * [ ] Mixin
+* [x] String + Char
 
 
 ### Maybies

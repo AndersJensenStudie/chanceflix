@@ -22,6 +22,10 @@ pub mod Random2.RandomInt32 {
                 k(getRandomInt32WithRandom())
         }
 
+    pub def randomInts(n: Int32): List[Int32] \ RandomInt32 = 
+        List.range(0, n)
+        |> List.map(_ -> RandomInt32.randomInt32())
+
     def getRandomInt32WithRandom(): Int32 \ Random2 = 
         Random2.randomBytes(4)
         |> Vector.map(Int8.toInt32 >> Int32.bitwiseAnd(255))
@@ -34,7 +38,7 @@ pub mod Random2.RandomInt32 {
             0i32
         } else {
             let a_ = Int32.toInt64(a);
-            let k = Int32.toInt64(b) - a_ + 1i64;
+            let k = Int32.toInt64(b) - a_;
             let m = 2i64 * (Int32.toInt64(Int32.maxValue()) + 1i64);
             let limit = m - Int64.modulo(m, k);
             def rec(): Int32 = {
