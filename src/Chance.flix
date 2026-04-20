@@ -1,6 +1,7 @@
 pub mod Chance {
     use Chance.unique
     use Chance.CreditCardType.CreditCardType
+    use Chance.Coin.CoinType
     // Effect definitions
     pub eff Dice {
         def roll(sides: Int32): Int32
@@ -93,6 +94,10 @@ pub mod Chance {
     ///
     pub eff Bernoulli {
         def bernoulli(p: Float64): Int32
+    }
+    
+    pub eff Coin {
+        def flip(p: { heads = Float32, tails = Float32, edge = Float32 }): CoinType
     }
 
 }
