@@ -30,6 +30,9 @@ pub mod Chance {
         def rPhone(country: String, fmt: Bool, cc: Bool): String
     }
 
+    pub eff Animal {
+        def rAnimal(typ: String): String
+    }
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
         if (i <= 0) {
