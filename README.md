@@ -13,7 +13,7 @@ Missing stuff from chance:
 * [ ] Ssn
 * [ ] suffix
 * [ ] prefix
-* [ ] Animal
+* [X] Animal
 * [ ] (androidid)
 * [ ] Domain
 * [ ] Color (rbg, richstring)
