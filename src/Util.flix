@@ -19,6 +19,19 @@ pub mod Util {
             };
         rec(0, ls)
 
+    pub def printbits(x: Int8): Unit \ IO =
+        let map = List.map((i) -> Int8.getBit(pos = i, x), List.reverse(List.range(0, 8)));
+        println(map)
+
+    pub def printbits16(x: Int16): Unit \ IO =
+        let map = List.map((i) -> Int16.getBit(pos = i, x), List.reverse(List.range(0, 16)));
+        println(map)
+
+    pub def printbits32(x: Int32): Unit \ IO =
+        let map = List.map((i) -> Int32.getBit(pos = i, x), List.reverse(List.range(0, 32)));
+        println(map)
+
+
     pub def log(x: Float64): Float64 = 
         unsafe IO {
             JMath.log(x)
