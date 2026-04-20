@@ -6,7 +6,7 @@ Todo:
 Missing stuff from chance:
 * [X] Pick
 * [X] Phone with country codes etc
-* [ ] Age
+* [X] Age
 * [ ] Birthday
 * [ ] Name
 * [ ] Gender

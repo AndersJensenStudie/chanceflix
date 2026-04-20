@@ -33,6 +33,11 @@ pub mod Chance {
     pub eff Animal {
         def rAnimal(typ: String): String
     }
+
+    pub eff Age {
+        def rAge(typ: Option[Chance.Age.AgeType]): Int32
+    }
+
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
         if (i <= 0) {
