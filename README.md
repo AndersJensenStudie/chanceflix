@@ -38,7 +38,7 @@ Missing stuff from chance:
     * [X] Bernoulli
     * [ ] Binomial
     * [ ] Poisson
-* [ ] Mixin
+* [ ] Mixin -> Dont make this. Just works automatically with functions.
 * [x] String + Char
 
 
