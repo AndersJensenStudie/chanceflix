@@ -26,9 +26,25 @@ pub mod TestCoin {
         let l_ = List.map(a -> List.count(b -> a == b, l))(List#{CoinType.Heads, CoinType.Tails, CoinType.Edge});
         let max = Option.getOrAbort(List.maximum(l_));
         let min = Option.getOrAbort(List.minimum(l_));
-        println(l_);
         Assert.assertTrue(max - min < 5_000);
         ()
+
+    pub def testCoin04(): Unit \ IO = 
+        let _ = run {
+            def loop(i: Int32) = {
+                // let h = Random2.RandomFloat32.randomFloat32()*1000f32;
+                let h = 0f32;
+                let t = Random2.RandomFloat32.randomFloat32()*1000f32;
+                let e = Random2.RandomFloat32.randomFloat32()*1000f32;
+                println("h=${h}, t=${t}, e=${e}");
+                let _ = Chance.Coin.flip({ heads=h, tails=t, edge=e });
+                if (i < 1000) {loop(i + 1)} else {()}
+            };
+            loop(0)
+        } with Chance.Coin.runWithIO with Random2.RandomFloat32.runWithIO;
+        ()
+
+
 
 
 }
