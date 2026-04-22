@@ -104,4 +104,8 @@ pub mod Chance {
         def flip(p: { heads = Float32, tails = Float32, edge = Float32 }): CoinType
     }
 
+    pub eff Color {
+        def rColor(): RichString.Color
+    }
+
 }
