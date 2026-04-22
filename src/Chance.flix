@@ -39,6 +39,10 @@ pub mod Chance {
         def rAge(typ: Option[Chance.Age.AgeType]): Int32
     }
 
+    pub eff Currency {
+        def currency(): Chance.Currency.Cur
+    }
+
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
         if (i <= 0) {
