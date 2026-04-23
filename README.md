@@ -16,7 +16,7 @@ Missing stuff from chance:
 * [X] Animal
 * [ ] (androidid)
 * [ ] Domain
-* [ ] Color (rbg, richstring)
+* [X] Color (rbg, richstring)
 * [ ] email
 * [ ] IPv4
 * [ ] IPv6
