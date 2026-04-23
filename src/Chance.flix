@@ -43,6 +43,10 @@ pub mod Chance {
         def currency(): Chance.Currency.Cur
     }
 
+    pub eff IdNumber {
+        def id(typ: Chance.IdNumber.Type, fmt: Bool): String
+    }
+
     // Utility functions for effects
     pub def n(f: Unit -> b \ ef, i: Int32): List[b] \ ef =
         if (i <= 0) {
