@@ -26,7 +26,7 @@ Missing stuff from chance:
 * [ ] Time
 * [X] Creditcard number
 * [X] Creditcard type
-* [ ] Currency and currencypair
+* [X] Currency and currencypair
 * [X] Coin
 * [X] Dice (all of them)
 * [X] Rpg
