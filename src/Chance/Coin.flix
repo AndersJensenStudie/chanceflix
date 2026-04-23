@@ -44,7 +44,7 @@ pub mod Chance.Coin {
         let totalP = Vector.foldLeft(p1 -> p2 -> p1 + p2, 0f32, vF);
         let randNum = Random2.RandomFloat32.randRange(0f32, 1f32);
         let res_i = getRandomCoinTypeIndex(vF, randNum*totalP);
-        Option.getWithDefault(bug!("unreachable"), Vector.nth(res_i, Vector#{CoinType.Heads, CoinType.Tails, CoinType.Edge}))
+        Option.getWithDefault(unreachable!(), Vector.nth(res_i, Vector#{CoinType.Heads, CoinType.Tails, CoinType.Edge}))
     }
 
     @DefaultHandler
