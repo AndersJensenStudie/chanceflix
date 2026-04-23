@@ -41,4 +41,7 @@ pub mod Util {
         unsafe IO {
             JMath.sqrt(x)
         }
+
+    pub def exp(x: Float64): Float64 = 
+        JMath.exp(x)
 }
