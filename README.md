@@ -33,7 +33,7 @@ Missing stuff from chance:
 * [X] GUID
 * [X] Hash
 * [X] "n" + Unique
-* [ ] Number Distributions
+* [X] Random Distributions
     * [X] Normal
     * [X] Bernoulli
     * [X] Binomial
