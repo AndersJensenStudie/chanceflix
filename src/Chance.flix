@@ -108,4 +108,8 @@ pub mod Chance {
         def rColor(): RichString.Color
     }
 
+    pub eff Binomial {
+        def binomial(n: Int32, p: Float64): Int32
+    }
+
 }
