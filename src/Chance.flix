@@ -99,6 +99,14 @@ pub mod Chance {
     pub eff Bernoulli {
         def bernoulli(p: Float64): Int32
     }
+
+    pub eff Binomial {
+        def binomial(n: Int32, p: Float64): Int32
+    }
+
+    pub eff Poisson {
+        def poisson(rate: Float64): Int32
+    }
     
     pub eff Coin {
         def flip(p: { heads = Float32, tails = Float32, edge = Float32 }): CoinType
@@ -106,10 +114,6 @@ pub mod Chance {
 
     pub eff Color {
         def rColor(): RichString.Color
-    }
-
-    pub eff Binomial {
-        def binomial(n: Int32, p: Float64): Int32
     }
 
 }

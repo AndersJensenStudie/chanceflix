@@ -36,8 +36,8 @@ Missing stuff from chance:
 * [ ] Number Distributions
     * [X] Normal
     * [X] Bernoulli
-    * [ ] Binomial
-    * [ ] Poisson
+    * [X] Binomial
+    * [X] Poisson
 * [ ] Mixin -> Dont make this. Just works automatically with functions.
 * [x] String + Char
 
