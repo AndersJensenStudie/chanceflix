@@ -55,9 +55,11 @@ pub mod Chance.CreditCardNo {
     /// Generates a random credit card number of type `tp` that passes Luhns Algorithm
     ///
     def generateCCNo(tp: CreditCardType): String \ Random2.RandomInt32 =
-        let len = Random2.pickOne(length(tp));
-        let pre = Random2.pickOne(prefix(tp));
-        generateCCNoWithLuhns(len, pre)
+        run {
+            let len = length(tp) |> Pickable.pick(1) |> Vector.head |> Option.getWithDefault(0);
+            let pre = prefix(tp) |> Pickable.pick(1) |> Vector.head |> Option.getWithDefault(0);
+            generateCCNoWithLuhns(len, pre)
+        } with Pick.runWithRandomInt32
 
     ///
     /// Generate a credit card number of length `len` with prefix `pre`

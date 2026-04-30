@@ -10,7 +10,7 @@ trait Pickable[t] {
 instance Pickable[List[e]] {
     pub def pick(i: Int32, col: List[e]): List[e] \ Pick = 
         Pick.pick(i, List.length(col)) |> Vector.toList |> List.foldLeft((acc -> (a -> (
-            Option.getWithDefault(unreachable!(), List.nth(a, col)) :: acc
+            Option.getWithDefault(bug!("tis"), List.nth(a, col)) :: acc
         ))), Nil) |> List.reverse
 }
 
@@ -28,19 +28,6 @@ instance Pickable[Chain[e]] {
             Chain.append(Chain.get(a, col) |> Chain.singleton, acc)
         ))), Chain.empty())
 }
-
-
-
-// instance Pickable[Array[e, r]] {
-//     type Aef = {r, rc}
-//     pub def pick(i: Int32, col: Array[e, r]): Array[e, rc] \ Pick + r + rc = 
-//         region rc {
-//             let idxs = Pick.pick(i, Array.length(col));
-//             Array.init(rc, (idx) -> {
-//                 Array.get(Vector.get(idx, idxs), col)
-//             }, i)
-//         }
-// }
 
 
 pub mod Pick {
