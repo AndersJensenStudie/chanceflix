@@ -108,4 +108,8 @@ pub mod Chance {
         def rColor(): RichString.Color
     }
 
+    pub eff Ipv6 {
+        def rIpv6(s: String): Option[Net.Ipv6Addr]
+    }
+
 }
