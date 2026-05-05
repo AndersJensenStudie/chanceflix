@@ -28,6 +28,7 @@ Missing stuff from chance:
 * [X] Creditcard type
 * [X] Currency and currencypair
 * [X] Coin
+    * [ ] Coin middleware, e.g. make the coin fair until first occurance of Heads, then only produce Heads
 * [X] Dice (all of them)
 * [X] Rpg
 * [X] GUID
