@@ -6,7 +6,9 @@ Todo:
 Missing stuff from chance:
 * [X] Pick
 * [X] Phone with country codes etc
+    * [ ] `country` should be an enum, not a string, to uphold convention. 
 * [X] Age
+    * [ ] `getAge` should not be public.
 * [ ] Birthday
 * [ ] Name
 * [ ] Gender

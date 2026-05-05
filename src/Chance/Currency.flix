@@ -4,6 +4,9 @@ pub mod Chance.Currency {
         case AFN, EUR, ALL, DZD, USD, AOA, XCD, XAD, ARS, AMD, AWG, AZN, BSD, BHD, BDT, BBD, BYN, BZD, XOF, BMD, INR, BTN, BOB, BOV, BAM, BWP, NOK, BRL, BND, BIF, CVE, KHR, XAF, CAD, KYD, CLP, CLF, CNY, AUD, COP, COU, KMF, CDF, NZD, CRC, CUP, XCG, CZK, DKK, DJF, DOP, EGP, SVC, ERN, SZL, ETB, FKP, FJD, XPF, GMD, GEL, GHS, GIP, GTQ, GBP, GNF, GYD, HTG, HNL, HKD, HUF, ISK, IDR, XDR, IRR, IQD, ILS, JMD, JPY, JOD, KZT, KES, KPW, KRW, KWD, KGS, LAK, LBP, LSL, ZAR, LRD, LYD, CHF, MOP, MGA, MWK, MYR, MVR, MRU, MUR, XUA, MXN, MXV, MDL, MNT, MAD, MZN, MMK, NAD, NPR, NIO, NGN, MKD, OMR, PKR, PAB, PGK, PYG, PEN, PHP, PLN, QAR, RON, RUB, RWF, SHP, WST, STN, SAR, RSD, SCR, SLE, SGD, XSU, SBD, SOS, SSP, LKR, SDG, SRD, SEK, CHE, CHW, SYP, TWD, TJS, TZS, THB, TOP, TTD, TND, TRY, TMT, UGX, UAH, AED, USN, UYU, UYI, UYW, UZS, VUV, VES, VED, VND, YER, ZMW, ZWG, XBA, XBB, XBC, XBD, XAU, XPD, XPT, XAG
     }
 
+    ///
+    /// Generates a random pair of unique currencies.
+    ///
     pub def currencyPair(): (Cur, Cur) \ Currency = 
         Chance.unique(() -> Currency.currency(), 2)
         |> (lst) -> (Option.getWithDefault(unreachable!(), List.head(lst)), Option.getWithDefault(unreachable!(), List.nth(1, lst)))
@@ -37,6 +40,11 @@ pub mod Chance.Currency {
     def getRandomCur(): Cur \ Random2.RandomInt32 =
         Random2.pickOne(getValues())
 
+    ///
+    /// Runs the `Currency` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Currency` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Currency) + IO =
         run {
@@ -46,6 +54,11 @@ pub mod Chance.Currency {
                 k(run {getRandomCur()} with Random2.RandomInt32.runWithIO)
         }
 
+    ///
+    /// Runs the `Currency` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Currency` effect using the `RandomInt32` effect.
+    ///
     pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Currency) + Random2.RandomInt32 =
         run {
             f()
@@ -54,6 +67,11 @@ pub mod Chance.Currency {
                 k(getRandomCur())
         }
 
+    ///
+    /// Runs the `Currency` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Currency` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Currency) + Random2 =
         run {
             f()
@@ -62,11 +80,16 @@ pub mod Chance.Currency {
                 k(run {getRandomCur()} with Random2.RandomInt32.runWithRandom)
         }
 
-
+    ///
+    /// Returns the currency `cur` as a string.
+    ///
     pub def getAbr(cur: Cur): String = match cur {
         case s => ToString.toString(s)
     }
 
+    ///
+    /// Returns a string containing the full name of currency `cur`.
+    ///
     pub def getName(cur: Cur): String = match cur {
         case Cur.AFN => "Afghani"
         case Cur.EUR => "Euro"
@@ -246,6 +269,9 @@ pub mod Chance.Currency {
         case Cur.XAG => "Silver"
     }
 
+    ///
+    /// Returns the currency code of currency `cur` as a string.
+    ///
     pub def getCode(cur: Cur): String = match cur {
         case Cur.AFN => "971"
         case Cur.EUR => "978"

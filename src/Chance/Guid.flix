@@ -3,6 +3,11 @@ pub mod Chance.Guid {
     use Random2.RandomInt32.{randRange}
     use Random2.RandomInt32
 
+    ///
+    /// Runs the `Guid` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Guid` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Guid) + IO = 
         let gp = "0123456789abcdef";

@@ -2,8 +2,16 @@ pub mod Chance.Animal {
     use Ref.get
     use Chance.Animal
 
+    ///
+    /// Generates a random animal.
+    ///
     pub def animal(): String \ Animal = Animal.rAnimal("")
 
+    ///
+    /// Runs the `Animal` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Animal` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Animal) + IO =
         run {
@@ -13,6 +21,11 @@ pub mod Chance.Animal {
                 k(run {getAnimal(typ)} with Random2.RandomInt32.runWithIO)
         }
     
+    ///
+    /// Runs the `Animal` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Animal` effect using the `RandomInt32` effect.
+    ///
     pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Animal) + Random2.RandomInt32 =
         run {
             f()
@@ -21,6 +34,11 @@ pub mod Chance.Animal {
                 k(getAnimal(typ))
         }
 
+    ///
+    /// Runs the `Animal` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Animal` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Animal) + Random2 =
         run {
             f()
@@ -30,6 +48,9 @@ pub mod Chance.Animal {
         }
     
 
+    ///
+    /// Returns a map from habitat type to a list of animals living there. 
+    ///
     pub def animals(): Map[String, List[String]] = 
         Map#{
             "ocean" => List#{"fish", "shark", "dolphin", "whale", "octopus", "jellyfish", "crab", "lobster", "starfish", "seahorse"},
@@ -41,6 +62,9 @@ pub mod Chance.Animal {
             "zoo" => List#{"lion", "tiger", "elephant", "giraffe", "zebra", "monkey", "panda", "kangaroo", "penguin"}
         }
 
+    ///
+    /// Returns a set of habitat types.
+    ///
     pub def types(): Set[String] = 
         Map.keysOf(animals())
 

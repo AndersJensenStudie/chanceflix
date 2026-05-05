@@ -8,9 +8,17 @@ pub mod Chance.Age {
         case Senior
     }
 
+    ///
+    /// Generates a random human age.
+    ///
     pub def age(): Int32 \ Age = 
         rAge(None)
 
+    ///
+    /// Runs the `Age` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Age` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Age) + IO =
         run {
@@ -20,6 +28,11 @@ pub mod Chance.Age {
                 k(run {getAge(typ)} with RandomInt32.runWithIO)
         }
 
+    ///
+    /// Runs the `Age` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Age` effect using the `RandomInt32` effect.
+    ///
     pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Age) + Random2.RandomInt32 = 
         run {
             f()
@@ -28,6 +41,11 @@ pub mod Chance.Age {
                 k(getAge(typ))
         }
 
+    ///
+    /// Runs the `Age` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Age` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Age) + Random2 = 
         run {
             f()
