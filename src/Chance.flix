@@ -1,6 +1,5 @@
 pub mod Chance {
     use Chance.unique
-    use Chance.CreditCardType.CreditCardType
     use Chance.Coin.CoinType
     // Effect definitions
     pub eff Dice {
@@ -71,16 +70,16 @@ pub mod Chance {
     /// The resulting card will be of correct length and pass Luhns Algorithm
     ///
     pub eff CreditCardNo {
-        def creditCardNo(tp: CreditCardType): String
+        def creditCardNo(tp: RCreditCardType.CreditCardType): String
     }
 
-    pub eff CreditCardType {
-        def creditCardType(): CreditCardType
+    pub eff RCreditCardType {
+        def rCreditCardType(): RCreditCardType.CreditCardType
     }
 
     pub eff CreditCard {
-        def creditCardNo(tp: CreditCardType): String
-        def creditCardType(): CreditCardType
+        def creditCardNo(tp: RCreditCardType.CreditCardType): String
+        def creditCardType(): RCreditCardType.CreditCardType
     }
 
     pub eff Hash {
