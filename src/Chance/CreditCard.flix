@@ -106,6 +106,10 @@ pub mod Chance.CreditCard {
         }
         
 
+    ///
+    /// Checks if a given credit card is a valid credit card
+    /// of one of the types defined in `Chance.RCreditCardType.CreditCardNo`
+    ///
     pub def isValidCreditCardNo(no: String): Bool \ {} = 
         let noLen = String.length(no);
         @Tailrec
