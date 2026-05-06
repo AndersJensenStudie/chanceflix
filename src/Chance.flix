@@ -115,4 +115,8 @@ pub mod Chance {
         def rColor(): RichString.Color
     }
 
+    pub eff Prime {
+        def primeRange(a: Int32, b: Int32): Int32
+    }
+
 }
