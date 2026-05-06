@@ -93,20 +93,20 @@ pub mod Chance.CreditCard {
         let head = List.take(len - 1, ls);
         match List.last(ls) {
             case None => false
-            case Some(x) => 
+            case Some(check) => 
                 let sum = List.range(0, len - 1)
                     |> List.map(i -> if (Int32.modulo(i, 2) == 0) 2 else 1)
-                    |> List.zip(head)
+                    |> List.zip(List.reverse(head))
                     |> List.map(match (n, m) -> n * m)
                     |> List.map(Util.toDigits)
                     |> List.flatten
                     |> List.sum;
                 let checkDig = Int32.modulo((10 - (Int32.modulo(sum, 10))), 10);
-                checkDig == x
+                checkDig == check
         }
         
 
-    pub def isValidCreditCardNo(no: String): Bool \ {IO} = 
+    pub def isValidCreditCardNo(no: String): Bool \ {} = 
         let noLen = String.length(no);
         @Tailrec
         def rec(cut: Int32): Bool = {

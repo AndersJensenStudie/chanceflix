@@ -69,7 +69,7 @@ pub mod Chance.CreditCardNo {
         let r = List.range(0, toGenerate)
         |> List.map(_ -> Random2.RandomInt32.randRange(0, 10));
         let nrs = List.append(prel, r);
-        let check = 10 - Int32.modulo(luhnsSum(List.reverse(nrs)), 10);
+        let check = Int32.modulo(10 - Int32.modulo(luhnsSum(List.reverse(nrs)), 10), 10);
         let full = List.append(nrs, check :: Nil);
         List.join("", full)
 

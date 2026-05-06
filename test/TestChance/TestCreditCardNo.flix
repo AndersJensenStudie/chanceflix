@@ -38,11 +38,16 @@ mod TestCreditCardNo {
         with runWithIO;
         println(n)
 
-
-    // fails on 55457151418330410, 6767781098526792491, 3461012584730810
     @Test
-    pub def testIsValid(): Unit \ IO + Chance.CreditCardNo + Chance.RCreditCardType = 
+    def testIsValid(): Unit \ Chance.CreditCardNo + Chance.RCreditCardType + Assert = 
         let cc = Chance.CreditCardNo.getRandomCreditCardNo();
-        println(cc);
-        println(Chance.CreditCard.isValidCreditCardNo(cc))
+        Assert.assertTrue(Chance.CreditCard.isValidCreditCardNo(cc))
+
+    @Test
+    def testIsValid02(): Unit \ Chance.CreditCardNo + Chance.RCreditCardType + Assert = 
+        let b = List.range(0, 500)
+        |> List.map(_ -> Chance.CreditCardNo.getRandomCreditCardNo())
+        |> List.map(n -> Chance.CreditCard.isValidCreditCardNo(n))
+        |> List.forAll(b -> b);
+        Assert.assertTrue(b)
 }
