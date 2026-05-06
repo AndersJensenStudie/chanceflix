@@ -21,4 +21,11 @@ pub mod TestPick {
             loop(0)
         } with Pick.runWithIO
 
+    @Test
+    pub def testPickList03(): Unit \ IO = 
+        let choices = List.empty();
+        run {
+            let _x = Pickable.pick(1, choices);
+            ()
+        } with Pick.runWithIO
 }

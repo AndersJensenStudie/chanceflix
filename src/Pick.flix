@@ -40,7 +40,8 @@ instance Pickable[Chain[e]] {
 
 pub mod Pick {
     def getPick(i: Int32, n: Int32): Vector[Int32] \ Random2.RandomInt32 =
-        Vector.repeat(i, 0) |> Vector.map(_ -> Random2.RandomInt32.randRange(0, n))
+        if(n == 0) {Vector.empty()}
+        else Vector.repeat(i, 0) |> Vector.map(_ -> Random2.RandomInt32.randRange(0, n))
 
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Pick) + IO =
