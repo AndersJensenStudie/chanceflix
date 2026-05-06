@@ -44,6 +44,9 @@ pub mod Chance.Prime {
         };
         recIsPrime(2)
 
+    /// 
+    /// Should be implemented for much faster prime-checking
+    ///
     pub def isPrimeMillerRabin(p: Int32): Bool \ {} = 
         if (p < 2) { false } else 
         ???
