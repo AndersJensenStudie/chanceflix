@@ -124,7 +124,7 @@ pub mod Chance.RCreditCardType {
         }
 
     def getType(): Chance.RCreditCardType.CreditCardType \ Random2.RandomInt32 = 
-        Random2.pickOne(Vector#{
+        let x = (Vector#{
                         CreditCardType.AmericanExpress,
                         CreditCardType.BankCard,
                         CreditCardType.ChinaUnionPay,
@@ -142,5 +142,6 @@ pub mod Chance.RCreditCardType {
                         CreditCardType.VisaElectron,
                         CreditCardType.Dankort,
                         CreditCardType.VisaDankort
-                    })
+                    });
+        run {Pickable.pick(1, x) |> Vector.head |> Option.getWithDefault(CreditCardType.Visa)} with Pick.runWithRandomInt32
 }
