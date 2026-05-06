@@ -1,5 +1,5 @@
 pub mod Chance.CreditCardNo {
-    use Chance.CreditCardType.{CreditCardType, length, prefix}
+    use Chance.RCreditCardType.{CreditCardType, length, prefix}
 
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardNo) + IO = 
@@ -47,8 +47,8 @@ pub mod Chance.CreditCardNo {
     ///
     /// The resulting card will be of correct length and pass Luhns Algorithm.
     /// 
-    pub def getRandomCreditCardNo(): String \ Chance.CreditCardType + Chance.CreditCardNo = 
-        let tp = Chance.CreditCardType.creditCardType();
+    pub def getRandomCreditCardNo(): String \ Chance.RCreditCardType + Chance.CreditCardNo = 
+        let tp = Chance.RCreditCardType.rCreditCardType();
         creditCardNo(tp)
 
     ///
@@ -69,7 +69,7 @@ pub mod Chance.CreditCardNo {
         let r = List.range(0, toGenerate)
         |> List.map(_ -> Random2.RandomInt32.randRange(0, 10));
         let nrs = List.append(prel, r);
-        let check = 10 - Int32.modulo(luhnsSum(List.reverse(nrs)), 10);
+        let check = Int32.modulo(10 - Int32.modulo(luhnsSum(List.reverse(nrs)), 10), 10);
         let full = List.append(nrs, check :: Nil);
         List.join("", full)
 

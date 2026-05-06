@@ -1,4 +1,4 @@
-pub mod Chance.CreditCardType {
+pub mod Chance.RCreditCardType {
 
     pub enum CreditCardType {
         case AmericanExpress
@@ -51,7 +51,7 @@ pub mod Chance.CreditCardType {
             case CreditCardType.DiscoverCard                    => Vector#{6011, 644, 645, 646, 647, 648, 649, 65}
             case CreditCardType.InstaPayment                    => Vector#{637, 638, 639}
             case CreditCardType.JCB                             => Vector.range(3528, 3589 + 1)
-            case CreditCardType.Laser                           => Vector#{6304, 6706, 6771, 6709}
+            case CreditCardType.Laser                           => Vector#{6706, 6771, 6709}
             case CreditCardType.Maestro                         => Vector#{5018, 5020, 5038, 5893, 6304, 6759, 6761, 6762, 6763}
             case CreditCardType.Mastercard                      => Vector.append(Vector.range(2221, 2720 + 1), Vector.range(51, 55))
             case CreditCardType.Solo                            => Vector#{6334, 6767}
@@ -83,47 +83,47 @@ pub mod Chance.CreditCardType {
     }
 
     @DefaultHandler
-    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + IO =
+    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + IO =
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let t = run {
                     getType()
                 } with Random2.RandomInt32.runWithIO;
                 k(t)
         }
 
-    pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Random2.RandomInt32 = 
+    pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Random2.RandomInt32 = 
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let n = getType();
                 k(n)
         }
 
-    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Random2 =
+    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Random2 =
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let t = run {
                     getType()
                 } with Random2.RandomInt32.runWithRandom;
                 k(t)
         }
 
-    pub def runWithCreditCard(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Chance.CreditCard =
+    pub def runWithCreditCard(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Chance.CreditCard =
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let t = Chance.CreditCard.creditCardType();
                 k(t)
         }
 
-    def getType(): Chance.CreditCardType.CreditCardType \ Random2.RandomInt32 = 
+    def getType(): Chance.RCreditCardType.CreditCardType \ Random2.RandomInt32 = 
         Random2.pickOne(Vector#{
                         CreditCardType.AmericanExpress,
                         CreditCardType.BankCard,
