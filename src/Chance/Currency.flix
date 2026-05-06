@@ -35,7 +35,9 @@ pub mod Chance.Currency {
     }
 
     def getRandomCur(): Cur \ Random2.RandomInt32 =
-        Random2.pickOne(getValues())
+        run {
+            Pickable.pick(1, getValues()) |> Vector.head |> Option.getWithDefault(Cur.USD)
+        } with Pick.runWithRandomInt32
 
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Currency) + IO =

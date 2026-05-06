@@ -58,12 +58,6 @@ pub mod Random2 {
         def randomFloat32(): Float32
     }
 
-    ///
-    /// Gets a random element from vector `v`
-    ///
-    pub def pickOne(v: Vector[a]): a \ RandomInt32 = 
-        let r = RandomInt32.randRange(0, Vector.size(v));
-        Option.getWithDefault(bug!("unreachable"), Vector.nth(r, v))
 
     pub def randomBytes(n: Int32): Vector[Int8] \ Random2 = 
         Vector.repeat(n, 0i8)
