@@ -6,9 +6,9 @@ Todo:
 Missing stuff from chance:
 * [X] Pick
 * [X] Phone with country codes etc
-    * [ ] `country` should be an enum, not a string, to uphold convention. 
+    * [X] `country` should be an enum, not a string, to uphold convention. 
 * [X] Age
-    * [ ] `getAge` should not be public.
+    * [X] `getAge` should not be public.
 * [ ] Birthday
 * [ ] Name
 * [ ] Gender
@@ -35,7 +35,7 @@ Missing stuff from chance:
 * [X] Rpg
 * [X] GUID
 * [X] Hash
-    * [ ] max length in `getCustomHash` should be 1 larger
+    * [X] max length in `getCustomHash` should be 1 larger
 * [X] "n" + Unique
 * [X] Random Distributions
     * [X] Normal

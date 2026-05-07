@@ -54,7 +54,7 @@ pub mod Chance.Age {
                 k(run {getAge(typ)} with RandomInt32.runWithRandom)
         }
 
-    pub def getAge(typ: Option[AgeType]): Int32 \ RandomInt32 = 
+    def getAge(typ: Option[AgeType]): Int32 \ RandomInt32 = 
         match typ {
             case None => RandomInt32.randRange(0, 106)
             case Some(t) => match t {

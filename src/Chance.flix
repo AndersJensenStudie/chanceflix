@@ -1,4 +1,5 @@
 pub mod Chance {
+    use Chance.Phone
     use Chance.unique
     use Chance.RCreditCardType.CreditCardType
     use Chance.Coin.CoinType
@@ -76,7 +77,7 @@ pub mod Chance {
         ///
         /// `country` is a two-letter string. If `fmt` is `true`, the phone number will be formatted according to the customs of the specified country. If `cc` is `true`, the country code will be prepended. 
         ///
-        def rPhone(country: String, fmt: Bool, cc: Bool): String
+        def rPhone(country: Phone.Country, fmt: Bool, cc: Bool): String
     }
 
     ///

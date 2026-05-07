@@ -41,7 +41,7 @@ pub mod Chance.Hash {
             } else {
                 Chance.Pool.upperHexPool()
             };
-            RString.rString(min = length, max = length, pool)
+            RString.rString(min = length, max = length + 1, pool)
         } with RString.runWithRandom
 
     //
