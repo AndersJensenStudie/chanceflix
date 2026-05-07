@@ -42,6 +42,9 @@ pub mod Chance.RCreditCardType {
         }
     }
 
+    ///
+    /// Returns a vector of possible prefixes for credit card type `tp`
+    ///
     pub def prefix(tp: CreditCardType): Vector[Int32] = match tp {
             case CreditCardType.AmericanExpress                 => Vector#{34, 37}
             case CreditCardType.BankCard                        => Vector#{5610, 560221, 560222, 560223, 560224, 560225}
@@ -62,6 +65,9 @@ pub mod Chance.RCreditCardType {
             case CreditCardType.VisaDankort                     => Vector#{4571}
     }
 
+    ///
+    /// Returns a vector of possible lengths for credit card type `tp`
+    ///
     pub def length(tp: CreditCardType): Vector[Int32] = match tp {
         case CreditCardType.AmericanExpress                 => Vector#{15}
         case CreditCardType.BankCard                        => Vector#{16}
@@ -82,6 +88,11 @@ pub mod Chance.RCreditCardType {
         case CreditCardType.VisaDankort                     => Vector#{16}
     }
 
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + IO =
         run {
@@ -94,6 +105,11 @@ pub mod Chance.RCreditCardType {
                 k(t)
         }
 
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `RandomInt32` effect.
+    ///
     pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Random2.RandomInt32 = 
         run {
             f()
@@ -103,6 +119,11 @@ pub mod Chance.RCreditCardType {
                 k(n)
         }
 
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Random2 =
         run {
             f()
@@ -114,6 +135,11 @@ pub mod Chance.RCreditCardType {
                 k(t)
         }
 
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `CreditCard` effect.
+    ///
     pub def runWithCreditCard(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Chance.CreditCard =
         run {
             f()

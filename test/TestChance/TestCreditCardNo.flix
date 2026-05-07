@@ -1,5 +1,5 @@
 mod TestCreditCardNo {
-    use Chance.RCreditCardType.{rCreditCardType, prefix, length, runWithIO}
+    use Chance.RCreditCardType.{rCreditCardType, prefix, length}
     use Chance.CreditCardNo.creditCardNo
     @Test
     pub def creditCardNo01(): Unit \ IO = 
@@ -8,7 +8,7 @@ mod TestCreditCardNo {
             let nr = creditCardNo(tp);
             (tp, nr)
         } with Chance.CreditCardNo.runWithIO
-        with runWithIO;
+        with Chance.RCreditCardType.runWithIO;
         println(n);
         println(t);
         println(String.length("${n}"))
@@ -20,7 +20,7 @@ mod TestCreditCardNo {
             let nr = creditCardNo(tp);
             (tp, nr)
         } with Chance.CreditCardNo.runWithIO
-        with runWithIO;
+        with Chance.RCreditCardType.runWithIO;
         let validLen = length(t);
         Assert.assertTrue(Vector.memberOf(String.length("${n}"), validLen))
 
@@ -35,7 +35,7 @@ mod TestCreditCardNo {
             let nr = creditCardNo(tp);
             nr
         } with Chance.CreditCardNo.runWithIO
-        with runWithIO;
+        with Chance.RCreditCardType.runWithIO;
         println(n)
 
     @Test

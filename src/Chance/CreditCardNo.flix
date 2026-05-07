@@ -1,6 +1,11 @@
 pub mod Chance.CreditCardNo {
     use Chance.RCreditCardType.{CreditCardType, length, prefix}
 
+    ///
+    /// Runs the `CreditCardNo` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCardNo` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardNo) + IO = 
         run {
@@ -13,6 +18,11 @@ pub mod Chance.CreditCardNo {
                 k(n)
         }
 
+    ///
+    /// Runs the `CreditCardNo` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCardNo` effect using the `RandomInt32` effect.
+    ///
     pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardNo) + Random2.RandomInt32 = 
         run {
             f()
@@ -22,6 +32,11 @@ pub mod Chance.CreditCardNo {
                 k(n)
         }
 
+    ///
+    /// Runs the `CreditCardNo` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCardNo` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardNo) + Random2 = 
         run {
             f()
@@ -33,6 +48,11 @@ pub mod Chance.CreditCardNo {
                 k(n)
         }
 
+    ///
+    /// Runs the `CreditCardNo` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCardNo` effect using the `CreditCard` effect.
+    ///
     pub def runWithCreditCard(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardNo) + Chance.CreditCard =
         run {
             f()

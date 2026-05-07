@@ -3,6 +3,11 @@ pub mod Chance.Binomial {
     use Chance.Binomial
     use Chance.Bernoulli
 
+    ///
+    /// Runs the `Binomial` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Binomial` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Binomial) + IO =
         run {
@@ -14,6 +19,11 @@ pub mod Chance.Binomial {
                 } with Random2.RandomFloat64.runWithIO
         }
 
+    ///
+    /// Runs the `Binomial` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Binomial` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Binomial) + Random2 =
         run {
             f()
@@ -24,6 +34,11 @@ pub mod Chance.Binomial {
                 } with Random2.RandomFloat64.runWithRandom
         }
 
+    ///
+    /// Runs the `Binomial` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Binomial` effect using the `RandomFloat64` effect.
+    ///
     pub def runWithRandomFloat64(f: Unit -> a \ ef): a \ (ef - Binomial) + Random2.RandomFloat64 =
         run {
             f()
@@ -32,6 +47,11 @@ pub mod Chance.Binomial {
                 k(getBinomialWithFloat64(n, p, 0))
         }
 
+    ///
+    /// Runs the `Binomial` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Binomial` effect using the `Bernoulli` effect.
+    ///
     pub def runWithBernoulli(f: Unit -> a \ ef): a \ (ef - Binomial) + Chance.Bernoulli =
         run {
             f()
@@ -58,24 +78,24 @@ pub mod Chance.Binomial {
             getBinomialWithFloat64(n - 1, p, b + acc)
         }
     
-    @Deprecated
-    pub def getBinomial(n: Int64, p: Float64): Int32 \ Random2.RandomFloat64 = 
-        let r = Random2.RandomFloat64.randomFloat64();
-        let nf = Int64.toFloat64(n);
-        let nFac = Int64.toFloat64(Int64.factorial(n));
-        let q = (1f64 - p);
-        def cumulative(cdf: Float64, k: Int64): Int32 = {
-            let kf = Int64.toFloat64(k);
-            let kFac = Int64.factorial(k);
-            let denomf = Int64.toFloat64(kFac * Int64.factorial(n - k));
-            let binom = nFac / denomf;
-            let pk = Float64.pow(base = p, kf) * Float64.pow(base = q, nf - kf);
-            let cdf_ = binom * pk + cdf;
-            if (cdf_ > r) {
-                Int64.clampToInt32(min = 0, max = Int32.maxValue(), k)
-            } else {
-                cumulative(cdf_, k - 1i64)
-            }
-        };
-        cumulative(0f64, n)
+    // @Deprecated
+    // def getBinomial(n: Int64, p: Float64): Int32 \ Random2.RandomFloat64 = 
+    //     let r = Random2.RandomFloat64.randomFloat64();
+    //     let nf = Int64.toFloat64(n);
+    //     let nFac = Int64.toFloat64(Int64.factorial(n));
+    //     let q = (1f64 - p);
+    //     def cumulative(cdf: Float64, k: Int64): Int32 = {
+    //         let kf = Int64.toFloat64(k);
+    //         let kFac = Int64.factorial(k);
+    //         let denomf = Int64.toFloat64(kFac * Int64.factorial(n - k));
+    //         let binom = nFac / denomf;
+    //         let pk = Float64.pow(base = p, kf) * Float64.pow(base = q, nf - kf);
+    //         let cdf_ = binom * pk + cdf;
+    //         if (cdf_ > r) {
+    //             Int64.clampToInt32(min = 0, max = Int32.maxValue(), k)
+    //         } else {
+    //             cumulative(cdf_, k - 1i64)
+    //         }
+    //     };
+    //     cumulative(0f64, n)
 }

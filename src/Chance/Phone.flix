@@ -2,10 +2,15 @@ pub mod Chance.Phone {
     use Random2.RandomInt32
     use Chance.Phone
 
-
+    ///
+    /// Generates a formatted random US phone number without country code.
+    ///
     pub def phone(): String \ Phone = 
         rPhone("US", true, false)
 
+    ///
+    /// Generates a formatted random DK phone number without country code.
+    ///
     pub def dkPhone(): String \ Phone = 
         rPhone("DK", true, false)
 
@@ -34,6 +39,10 @@ pub mod Chance.Phone {
         })
 
     // Middleware
+    
+    ///
+    /// Middleware that intercepts the `Phone` effect, adding the country code to calls to the `rPhone` operation.
+    ///
     pub def withCountryCode(f: Unit -> a \ ef): a \ ef - Phone + Phone =
         run {
             f()
@@ -42,6 +51,9 @@ pub mod Chance.Phone {
                 k(Phone.rPhone(country, fmt, true))
         }
     
+    ///
+    /// Middleware that intercepts the `Phone` effect, setting the country to Denmark for calls to the `rPhone` operation.
+    ///
     pub def withDanishNumbers(f: Unit -> a \ ef): a \ ef - Phone + Phone =
         run {
             f()
@@ -50,6 +62,9 @@ pub mod Chance.Phone {
                 k(Phone.rPhone("DK", fmt, cc))
         }
 
+    ///
+    /// Middleware that intercepts the `Phone` effect, removing formatting from the returned phone number.
+    ///
     pub def unformatted(f: Unit -> a \ ef): a \ ef - Phone + Phone =
         run {
             f()
@@ -59,6 +74,12 @@ pub mod Chance.Phone {
         }
 
     // Terminating handlers
+
+    ///
+    /// Runs the `Phone` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Phone` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ ef - Phone + IO = 
         run {
@@ -73,6 +94,11 @@ pub mod Chance.Phone {
             }
         }
     
+    ///
+    /// Runs the `Phone` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Phone` effect using the `RandomInt32` effect.
+    ///
     pub def runWithRandomInt32(f: Unit -> a \ ef): a \ ef - Phone + RandomInt32 = 
         run {
             f()
@@ -83,6 +109,12 @@ pub mod Chance.Phone {
                 k(if (cc) {"${pre} ${number}"} else {number})
             }
         }
+
+    ///
+    /// Runs the `Phone` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Phone` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ ef - Phone + Random2 = 
         run {
             f()

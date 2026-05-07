@@ -3,6 +3,11 @@ pub mod Chance.Rpg {
     use Chance.Rpg
     use Chance.Dice
 
+    ///
+    /// Runs the `Rpg` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Rpg` effect using the `Dice` effect.
+    ///
     pub def runWithDice(f: Unit -> a \ ef): a \ (ef - Rpg) + Dice = 
         run {
             f()
@@ -16,6 +21,12 @@ pub mod Chance.Rpg {
                 }
             }
         }
+    
+    ///
+    /// Runs the `Rpg` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Rpg` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Rpg) + IO = 
         run {
