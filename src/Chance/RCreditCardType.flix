@@ -54,7 +54,7 @@ pub mod Chance.RCreditCardType {
             case CreditCardType.DiscoverCard                    => Vector#{6011, 644, 645, 646, 647, 648, 649, 65}
             case CreditCardType.InstaPayment                    => Vector#{637, 638, 639}
             case CreditCardType.JCB                             => Vector.range(3528, 3589 + 1)
-            case CreditCardType.Laser                           => Vector#{6304, 6706, 6771, 6709}
+            case CreditCardType.Laser                           => Vector#{6706, 6771, 6709}
             case CreditCardType.Maestro                         => Vector#{5018, 5020, 5038, 5893, 6304, 6759, 6761, 6762, 6763}
             case CreditCardType.Mastercard                      => Vector.append(Vector.range(2221, 2720 + 1), Vector.range(51, 55))
             case CreditCardType.Solo                            => Vector#{6334, 6767}
@@ -150,7 +150,7 @@ pub mod Chance.RCreditCardType {
         }
 
     def getType(): Chance.RCreditCardType.CreditCardType \ Random2.RandomInt32 = 
-        Random2.pickOne(Vector#{
+        let x = (Vector#{
                         CreditCardType.AmericanExpress,
                         CreditCardType.BankCard,
                         CreditCardType.ChinaUnionPay,
@@ -168,5 +168,6 @@ pub mod Chance.RCreditCardType {
                         CreditCardType.VisaElectron,
                         CreditCardType.Dankort,
                         CreditCardType.VisaDankort
-                    })
+                    });
+        run {Pickable.pick(1, x) |> Vector.head |> Option.getWithDefault(CreditCardType.Visa)} with Pick.runWithRandomInt32
 }

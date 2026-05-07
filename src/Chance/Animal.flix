@@ -71,12 +71,12 @@ pub mod Chance.Animal {
 
     def getAnimal(typ: String): String \ Random2.RandomInt32 = 
         let animalsMap = animals();
-        match Map.get(typ, animalsMap) {
+        run{ match Map.get(typ, animalsMap) {
             case None => {
-                Set.toVector(types()) |> Random2.pickOne |> getAnimal // try again with a random type
+                Set.toVector(types()) |> Pickable.pick(1) |> Vector.head |> Option.getWithDefault("") |> getAnimal // try again with a random type
             }
             case Some(animals) => {
-                List.toVector(animals) |> Random2.pickOne
+                List.toVector(animals) |> Pickable.pick(1) |> Vector.head |> Option.getWithDefault("")
             }
-        }
+        }} with Pick.runWithRandomInt32
 }

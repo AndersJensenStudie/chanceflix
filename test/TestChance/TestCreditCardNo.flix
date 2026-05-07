@@ -37,4 +37,17 @@ mod TestCreditCardNo {
         } with Chance.CreditCardNo.runWithIO
         with Chance.RCreditCardType.runWithIO;
         println(n)
+
+    @Test
+    def testIsValid(): Unit \ Chance.CreditCardNo + Chance.RCreditCardType + Assert = 
+        let cc = Chance.CreditCardNo.getRandomCreditCardNo();
+        Assert.assertTrue(Chance.CreditCard.isValidCreditCardNo(cc))
+
+    @Test
+    def testIsValid02(): Unit \ Chance.CreditCardNo + Chance.RCreditCardType + Assert = 
+        let b = List.range(0, 500)
+        |> List.map(_ -> Chance.CreditCardNo.getRandomCreditCardNo())
+        |> List.map(n -> Chance.CreditCard.isValidCreditCardNo(n))
+        |> List.forAll(b -> b);
+        Assert.assertTrue(b)
 }

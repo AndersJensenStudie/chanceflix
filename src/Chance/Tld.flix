@@ -1,6 +1,5 @@
 pub mod Chance.Tld {
     use Chance.Tld
-    use Random2.pickOne
 
     def standardTlds(): Vector[String] = Vector#{"com", "org", "net", "io", "gov", "edu", "co", "us", "uk", "de", "dk"}
 
@@ -23,22 +22,21 @@ pub mod Chance.Tld {
             f()
         } with handler Tld {
             def rTld(pool, k) = run {
-                k(pickOne(pool))
-            } with Random2.RandomInt32.runWithIO
+                k(Pickable.pick(1, pool) |> Vector.head |> Option.getWithDefault(""))
+            } with Pick.runWithIO
         }
 
     ///
     /// Runs the `Tld` effect of the given function `f`.
     ///
-    /// In other words, re-interprets the `Tld` effect using the `RandomInt32` effect.
+    /// In other words, re-interprets the `Tld` effect using the `Pick` effect.
     ///
-    pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Tld) + Random2.RandomInt32 =
+    pub def runWithPick(f: Unit -> a \ ef): a \ (ef - Tld) + Pick =
         run {
             f()
         } with handler Tld {
             def rTld(pool, k) =
-                k(pickOne(pool))
-            
+                k(Pickable.pick(1, pool) |> Vector.head |> Option.getWithDefault(""))   
         }
 
     ///
@@ -51,7 +49,8 @@ pub mod Chance.Tld {
             f()
         } with handler Tld {
             def rTld(pool, k) = run {
-                k(pickOne(pool))
-            } with Random2.RandomInt32.runWithRandom
+                k(Pickable.pick(1, pool) |> Vector.head |> Option.getWithDefault(""))
+            } with Pick.runWithRandomInt32
+            with Random2.RandomInt32.runWithRandom
         }
 }
