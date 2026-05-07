@@ -35,6 +35,7 @@ Missing stuff from chance:
 * [X] Rpg
 * [X] GUID
 * [X] Hash
+    * [ ] max length in `getCustomHash` should be 1 larger
 * [X] "n" + Unique
 * [X] Random Distributions
     * [X] Normal

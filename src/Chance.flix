@@ -1,6 +1,6 @@
 pub mod Chance {
     use Chance.unique
-    use Chance.CreditCardType.CreditCardType
+    use Chance.RCreditCardType.CreditCardType
     use Chance.Coin.CoinType
     
     ///
@@ -147,47 +147,80 @@ pub mod Chance {
     /// The resulting card will be of correct length and pass Luhns Algorithm
     ///
     pub eff CreditCardNo {
-        def creditCardNo(tp: CreditCardType): String
+        def creditCardNo(tp: RCreditCardType.CreditCardType): String
     }
 
-    pub eff CreditCardType {
-        def creditCardType(): CreditCardType
+    ///
+    /// An effect used to generate a random credit card type.
+    ///
+    pub eff RCreditCardType {
+        def rCreditCardType(): RCreditCardType.CreditCardType
     }
 
+    ///
+    /// An effect combining the `CreditCardNo` and `CreditCardType` effects for easier handling.
+    ///
     pub eff CreditCard {
-        def creditCardNo(tp: CreditCardType): String
-        def creditCardType(): CreditCardType
+        def creditCardNo(tp: RCreditCardType.CreditCardType): String
+        def creditCardType(): RCreditCardType.CreditCardType
     }
 
+    ///
+    /// An effect used to generate a random hash.
+    ///
     pub eff Hash {
+        ///
+        /// Returns a random hash of length `length`. Uses uppercase letters if `isUpperCase` is `true`.
+        ///
         def hash(length: Int32, isUpperCase: Bool): String
     }
 
+    ///
+    /// An effect used to generate a Normal distributed random number
+    ///
     pub eff Normal {
         def normal(mean: Float64, dev: Float64): Float64 
     }
 
     ///
-    /// An effect used to generate a random int in {0, 1}.
-    /// Gives 1 with probability `p`.
-    /// A `p` larger than 1 guarantees the result will be 1. A `p` smaller than 0 guarantees 0.
+    /// An effect used to generate a Bernoulli distributed random int in {0, 1}.
     ///
     pub eff Bernoulli {
+        ///
+        /// Returns a random int in {0, 1}.
+        /// Gives 1 with probability `p`.
+        /// A `p` larger than 1 guarantees the result will be 1. A `p` smaller than 0 guarantees 0.
+        ///
         def bernoulli(p: Float64): Int32
     }
 
+    ///
+    /// An effect used to generate a Binomial distributed random number.
+    ///
     pub eff Binomial {
         def binomial(n: Int32, p: Float64): Int32
     }
 
+    ///
+    /// An effect used to generate a Poisson distributed random number.
+    ///
     pub eff Poisson {
         def poisson(rate: Float64): Int32
     }
     
+    ///
+    /// An effect used to simulate a coin flip.
+    ///
     pub eff Coin {
+        ///
+        /// Returns the result of a coinflip. `p` contains the probability of each possible outcome. 
+        ///
         def flip(p: { heads = Float32, tails = Float32, edge = Float32 }): CoinType
     }
 
+    ///
+    /// An effect used to generate a random RGB color as defined in RichString.
+    ///
     pub eff Color {
         def rColor(): RichString.Color
     }

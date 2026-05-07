@@ -1,8 +1,13 @@
 pub mod Chance.CreditCard {
     use Chance.CreditCardNo
-    use Chance.CreditCardType
+    use Chance.RCreditCardType
     use Chance.CreditCard
 
+    ///
+    /// Runs the `CreditCard` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCard` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - CreditCard) + IO =
         run {
@@ -14,10 +19,15 @@ pub mod Chance.CreditCard {
                 } with CreditCardNo.runWithIO
             def creditCardType(k) = 
                 run {
-                    k(CreditCardType.creditCardType())
-                } with CreditCardType.runWithIO
+                    k(RCreditCardType.rCreditCardType())
+                } with RCreditCardType.runWithIO
         } 
 
+    ///
+    /// Runs the `CreditCard` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCard` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - CreditCard) + Random2 =
         run {
             f()
@@ -28,14 +38,19 @@ pub mod Chance.CreditCard {
                 } with CreditCardNo.runWithRandom
             def creditCardType(k) = 
                 run {
-                    k(CreditCardType.creditCardType())
-                } with CreditCardType.runWithRandom
+                    k(RCreditCardType.rCreditCardType())
+                } with RCreditCardType.runWithRandom
         }
 
-    pub def runBothWithIO(f: Unit -> a \ ef): a \ (ef - CreditCardNo - CreditCardType) + IO =
+    ///
+    /// Runs the `CreditCardNo` and `CreditCardType` effects of the given function `f`.
+    ///
+    /// In other words, re-interprets the `CreditCardNo` and `CreditCardType` effects using the `IO` effect.
+    ///
+    pub def runBothWithIO(f: Unit -> a \ ef): a \ (ef - CreditCardNo - RCreditCardType) + IO =
         run {
             f()
-        } with CreditCardType.runWithIO
+        } with RCreditCardType.runWithIO
         with CreditCardNo.runWithIO
 
 }

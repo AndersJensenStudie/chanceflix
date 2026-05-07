@@ -5,6 +5,11 @@ pub mod Chance.Normal {
     use Random2.RandomFloat64
     use Random2.RandomFloat64.randomFloat64
 
+    ///
+    /// Runs the `Normal` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Normal` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Normal) + IO =
         run {
@@ -16,6 +21,11 @@ pub mod Chance.Normal {
                 } with RandomFloat64.runWithIO
         }
 
+    ///
+    /// Runs the `Normal` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Normal` effect using the `RandomFloat64` effect.
+    ///
     pub def runWithRandomFloat64(f: Unit -> a \ ef): a \ (ef - Normal) + RandomFloat64 =
         run {
             f()
@@ -24,6 +34,11 @@ pub mod Chance.Normal {
                 k(getNormalFloat64(mean, dev))
         }
 
+    ///
+    /// Runs the `Normal` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Normal` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Normal) + Random2 =
         run {
             f()
@@ -45,6 +60,9 @@ pub mod Chance.Normal {
             dev * norm + mean
         }
 
+    ///
+    /// Returns random numbers with probability of a standard normal distribution.
+    ///
     pub def standardNormal(): Float64 \ Normal = 
         Chance.Normal.normal(0f64, 1f64)
 

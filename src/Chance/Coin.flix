@@ -25,9 +25,15 @@ pub mod Chance.Coin {
         }
     }
     
+    ///
+    /// Simulates a coin flip with P[Heads]=0.5, P[Tails]=0.5 and P[Edge]=0
+    ///
     pub def flipCoin(): CoinType \ Coin = 
         flip({ heads=0.5f32, tails=0.5f32, edge=0f32 })
 
+    ///
+    /// Simulates a coin flip with P[Heads]=0.45, P[Tails]=0.45 and P[Edge]=0.1
+    ///
     pub def flipCoinWithEdge(): CoinType \ Coin =
         flip({ heads=0.45f32, tails=0.45f32, edge=0.1f32 })
 
@@ -47,6 +53,11 @@ pub mod Chance.Coin {
         Option.getWithDefault(unreachable!(), Vector.nth(res_i, Vector#{CoinType.Heads, CoinType.Tails, CoinType.Edge}))
     }
 
+    ///
+    /// Runs the `Coin` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Coin` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Coin) + IO = 
         run {
@@ -59,6 +70,11 @@ pub mod Chance.Coin {
                 k(r)
         }
 
+    ///
+    /// Runs the `Coin` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Coin` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Coin) + Random2 = 
         run {
             f()
@@ -70,6 +86,11 @@ pub mod Chance.Coin {
                 k(r)
         }
     
+    ///
+    /// Runs the `Coin` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Coin` effect using the `RandomFloat32` effect.
+    ///
     pub def runWithRandomFloat32(f: Unit -> a \ ef): a \ (ef - Coin) + Random2.RandomFloat32 = 
         run {
             f()

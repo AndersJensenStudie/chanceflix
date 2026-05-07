@@ -1,5 +1,10 @@
 pub mod Chance.Poisson {
 
+    ///
+    /// Runs the `Poisson` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Poisson` effect using the `IO` effect.
+    ///
     @DefaultHandler
     pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Poisson) + IO =
         run {
@@ -11,6 +16,11 @@ pub mod Chance.Poisson {
                 } with Random2.RandomFloat64.runWithIO
         }
 
+    ///
+    /// Runs the `Poisson` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Poisson` effect using the `Random2` effect.
+    ///
     pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Poisson) + Random2 =
         run {
             f()
@@ -21,6 +31,11 @@ pub mod Chance.Poisson {
                 } with Random2.RandomFloat64.runWithRandom
         }
 
+    ///
+    /// Runs the `Poisson` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `Poisson` effect using the `RandomFloat64` effect.
+    ///
     pub def runWithRandomFloat64(f: Unit -> a \ ef): a \ (ef - Poisson) + Random2.RandomFloat64 =
         run {
             f()

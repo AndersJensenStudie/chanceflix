@@ -1,5 +1,5 @@
 pub mod Chance.CreditCardNo {
-    use Chance.CreditCardType.{CreditCardType, length, prefix}
+    use Chance.RCreditCardType.{CreditCardType, length, prefix}
 
     ///
     /// Runs the `CreditCardNo` effect of the given function `f`.
@@ -67,8 +67,8 @@ pub mod Chance.CreditCardNo {
     ///
     /// The resulting card will be of correct length and pass Luhns Algorithm.
     /// 
-    pub def getRandomCreditCardNo(): String \ Chance.CreditCardType + Chance.CreditCardNo = 
-        let tp = Chance.CreditCardType.creditCardType();
+    pub def getRandomCreditCardNo(): String \ Chance.RCreditCardType + Chance.CreditCardNo = 
+        let tp = Chance.RCreditCardType.rCreditCardType();
         creditCardNo(tp)
 
     ///

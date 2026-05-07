@@ -1,4 +1,4 @@
-pub mod Chance.CreditCardType {
+pub mod Chance.RCreditCardType {
 
     pub enum CreditCardType {
         case AmericanExpress
@@ -42,6 +42,9 @@ pub mod Chance.CreditCardType {
         }
     }
 
+    ///
+    /// Returns a vector of possible prefixes for credit card type `tp`
+    ///
     pub def prefix(tp: CreditCardType): Vector[Int32] = match tp {
             case CreditCardType.AmericanExpress                 => Vector#{34, 37}
             case CreditCardType.BankCard                        => Vector#{5610, 560221, 560222, 560223, 560224, 560225}
@@ -62,6 +65,9 @@ pub mod Chance.CreditCardType {
             case CreditCardType.VisaDankort                     => Vector#{4571}
     }
 
+    ///
+    /// Returns a vector of possible lengths for credit card type `tp`
+    ///
     pub def length(tp: CreditCardType): Vector[Int32] = match tp {
         case CreditCardType.AmericanExpress                 => Vector#{15}
         case CreditCardType.BankCard                        => Vector#{16}
@@ -82,48 +88,68 @@ pub mod Chance.CreditCardType {
         case CreditCardType.VisaDankort                     => Vector#{16}
     }
 
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `IO` effect.
+    ///
     @DefaultHandler
-    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + IO =
+    pub def runWithIO(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + IO =
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let t = run {
                     getType()
                 } with Random2.RandomInt32.runWithIO;
                 k(t)
         }
 
-    pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Random2.RandomInt32 = 
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `RandomInt32` effect.
+    ///
+    pub def runWithRandomInt32(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Random2.RandomInt32 = 
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let n = getType();
                 k(n)
         }
 
-    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Random2 =
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `Random2` effect.
+    ///
+    pub def runWithRandom(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Random2 =
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let t = run {
                     getType()
                 } with Random2.RandomInt32.runWithRandom;
                 k(t)
         }
 
-    pub def runWithCreditCard(f: Unit -> a \ ef): a \ (ef - Chance.CreditCardType) + Chance.CreditCard =
+    ///
+    /// Runs the `RCreditCardType` effect of the given function `f`.
+    ///
+    /// In other words, re-interprets the `RCreditCardType` effect using the `CreditCard` effect.
+    ///
+    pub def runWithCreditCard(f: Unit -> a \ ef): a \ (ef - Chance.RCreditCardType) + Chance.CreditCard =
         run {
             f()
-        } with handler Chance.CreditCardType {
-            def creditCardType(k) = 
+        } with handler Chance.RCreditCardType {
+            def rCreditCardType(k) = 
                 let t = Chance.CreditCard.creditCardType();
                 k(t)
         }
 
-    def getType(): Chance.CreditCardType.CreditCardType \ Random2.RandomInt32 = 
+    def getType(): Chance.RCreditCardType.CreditCardType \ Random2.RandomInt32 = 
         Random2.pickOne(Vector#{
                         CreditCardType.AmericanExpress,
                         CreditCardType.BankCard,
