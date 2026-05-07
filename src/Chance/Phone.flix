@@ -2,31 +2,43 @@ pub mod Chance.Phone {
     use Random2.RandomInt32
     use Chance.Phone
 
+    pub enum Country {
+        case US
+        case UK
+        case DK
+        case DE
+        case FR
+        case JP
+        case AU
+        case IN
+        case BR
+        case ES
+    }
+
     ///
     /// Generates a formatted random US phone number without country code.
     ///
     pub def phone(): String \ Phone = 
-        rPhone("US", true, false)
+        rPhone(Country.US, true, false)
 
     ///
     /// Generates a formatted random DK phone number without country code.
     ///
     pub def dkPhone(): String \ Phone = 
-        rPhone("DK", true, false)
+        rPhone(Country.DK, true, false)
 
 
-    def getFmt(country: String, fmt: Bool, cc: Bool): (String, String) = match country {
-        case "US" => (if (fmt) "(###) ###-####" else "##########", "+1")
-        case "UK" => (if (fmt) "07### ######" else "07##########", "+44")
-        case "DK" => (if (fmt) "## ## ## ##" else "########", "+45")
-        case "DE" => (if (fmt) "0### ### ####" else "0##########", "+49")
-        case "FR" => (if (fmt) "0# ## ## ## ##" else "0#########", "+33")
-        case "JP" => (if (fmt) "0# #### ####" else "0##########", "+81")
-        case "AU" => (if (fmt) "04## ### ###" else "04########", "+61")
-        case "IN" => (if (fmt) "##### #####" else "##########", "+91")
-        case "BR" => (if (fmt) "(##) #####-####" else "###########", "+55")
-        case "ES" => (if (fmt) "### ## ## ##" else "#########", "+34")
-        case _ => getFmt("US", fmt, cc)
+    def getFmt(country: Country, fmt: Bool): (String, String) = match country {
+        case Country.US => (if (fmt) "(###) ###-####" else "##########", "+1")
+        case Country.UK => (if (fmt) "07### ######" else "07##########", "+44")
+        case Country.DK => (if (fmt) "## ## ## ##" else "########", "+45")
+        case Country.DE => (if (fmt) "0### ### ####" else "0##########", "+49")
+        case Country.FR => (if (fmt) "0# ## ## ## ##" else "0#########", "+33")
+        case Country.JP => (if (fmt) "0# #### ####" else "0##########", "+81")
+        case Country.AU => (if (fmt) "04## ### ###" else "04########", "+61")
+        case Country.IN => (if (fmt) "##### #####" else "##########", "+91")
+        case Country.BR => (if (fmt) "(##) #####-####" else "###########", "+55")
+        case Country.ES => (if (fmt) "### ## ## ##" else "#########", "+34")
     }
 
 
@@ -59,7 +71,7 @@ pub mod Chance.Phone {
             f()
         } with handler Phone {
             def rPhone(_country, fmt, cc, k) =
-                k(Phone.rPhone("DK", fmt, cc))
+                k(Phone.rPhone(Country.DK, fmt, cc))
         }
 
     ///
@@ -87,7 +99,7 @@ pub mod Chance.Phone {
         } with handler Phone {
             def rPhone(country, fmt, cc, k) = {
                 run {
-                    let (fmtstr, pre) = getFmt(country, fmt, cc);
+                    let (fmtstr, pre) = getFmt(country, fmt);
                     let number = replaceHash(fmtstr);
                     k(if (cc) {"${pre} ${number}"} else {number})
                 } with Random2.RandomInt32.runWithIO
@@ -104,7 +116,7 @@ pub mod Chance.Phone {
             f()
         } with handler Phone {
             def rPhone(country, fmt, cc, k) = {
-                let (fmtstr, pre) = getFmt(country, fmt, cc);
+                let (fmtstr, pre) = getFmt(country, fmt);
                 let number = replaceHash(fmtstr);
                 k(if (cc) {"${pre} ${number}"} else {number})
             }
@@ -121,7 +133,7 @@ pub mod Chance.Phone {
         } with handler Phone {
             def rPhone(country, fmt, cc, k) = {
                 run {
-                    let (fmtstr, pre) = getFmt(country, fmt, cc);
+                    let (fmtstr, pre) = getFmt(country, fmt);
                     let number = replaceHash(fmtstr);
                     k(if (cc) {"${pre} ${number}"} else {number})
                 } with Random2.RandomInt32.runWithRandom
