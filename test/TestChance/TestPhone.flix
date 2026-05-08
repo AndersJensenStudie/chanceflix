@@ -9,7 +9,7 @@ pub mod TestPhone {
 
     @Test
     pub def testPhone2(): Unit \ Assert + Phone + IO = 
-        let phone = Chance.Phone.rPhone("DK", true, true);
+        let phone = Chance.Phone.rPhone(Phone.Country.DK, true, true);
         println("Generated phone number: " + phone);
         assertTrue(String.length(phone) >= 10)
 }

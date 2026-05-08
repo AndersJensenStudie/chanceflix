@@ -1,6 +1,7 @@
 pub mod Chance.CreditCard {
     use Chance.CreditCardNo
     use Chance.RCreditCardType
+    use Chance.RCreditCardType.CreditCardType
     use Chance.CreditCard
 
     ///
