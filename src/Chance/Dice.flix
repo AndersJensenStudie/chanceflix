@@ -44,6 +44,52 @@ pub mod Chance.Dice {
         Dice.roll(100)
 
     ///
+    /// Middleware handler for `Dice` that simulates multiple rolls and picks the highest
+    ///
+    pub def withMaxOverSeveral(tries: Int32, f: Unit -> a \ ef): a \ (ef - Dice) + Dice =
+        run {
+            f()
+        } with handler Dice {
+            def roll(sides, k) = 
+                def loop(i: Int32, best: Int32) = {
+                    let x = Dice.roll(sides);
+                    let b = Int32.max(x, best);
+                    if (i < tries) loop(i + 1, b)
+                    else b
+                };
+                k(loop(0, 0))
+        }
+    ///
+    /// Middleware handler for `Dice` that simulates multiple rolls and picks the lowest
+    ///
+    pub def withMinOverSeveral(tries: Int32, f: Unit -> a \ ef): a \ (ef - Dice) + Dice =
+        run {
+            f()
+        } with handler Dice {
+            def roll(sides, k) = 
+                def loop(i: Int32, best: Int32) = {
+                    let x = Dice.roll(sides);
+                    let b = Int32.min(x, best);
+                    if (i < tries) loop(i + 1, b)
+                    else b
+                };
+                k(loop(0, Int32.maxValue()))
+        }
+    
+    ///
+    /// Middleware handler for `Dice` that takes the average over multiple rolls
+    ///
+    pub def withAvg(tries: Int32, f: Unit -> a \ ef): a \ (ef - Dice) + Dice =
+        run {
+            f()
+        } with handler Dice {
+            def roll(sides, k) = 
+                let total = List.repeat(tries, 0) |> List.map(_ -> Dice.roll(sides))
+                |> List.foldLeft(roll -> acc -> roll + acc, 0);
+                k(total/tries)
+        }
+
+    ///
     /// Runs the `Dice` effect of the given function `f`.
     ///
     /// In other words, re-interprets the `Dice` effect using the `IO` effect.
