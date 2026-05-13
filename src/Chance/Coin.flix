@@ -29,26 +29,26 @@ pub mod Chance.Coin {
     /// Simulates a coin flip with P[Heads]=0.5, P[Tails]=0.5 and P[Edge]=0
     ///
     pub def flipCoin(): CoinType \ Coin = 
-        flip({ heads=0.5f32, tails=0.5f32, edge=0f32 })
+        flip({ heads=0.5f64, tails=0.5f64, edge=0f64 })
 
     ///
     /// Simulates a coin flip with P[Heads]=0.45, P[Tails]=0.45 and P[Edge]=0.1
     ///
     pub def flipCoinWithEdge(): CoinType \ Coin =
-        flip({ heads=0.45f32, tails=0.45f32, edge=0.1f32 })
+        flip({ heads=0.45f64, tails=0.45f64, edge=0.1f64 })
 
-    def getRandomCoinTypeIndex(v: Vector[Float32], r: Float32): Int32 = 
-        def loop(loop_r: Float32, loop_i: Int32): Int32 = {
-            let loop_r_ = loop_r - Option.getWithDefault(0f32, Vector.nth(loop_i, v));
-            if (loop_r_ <= 0f32) loop_i else loop(loop_r_, loop_i+1)
+    def getRandomCoinTypeIndex(v: Vector[Float64], r: Float64): Int32 = 
+        def loop(loop_r: Float64, loop_i: Int32): Int32 = {
+            let loop_r_ = loop_r - Option.getWithDefault(0f64, Vector.nth(loop_i, v));
+            if (loop_r_ <= 0f64) loop_i else loop(loop_r_, loop_i+1)
         };
         loop(r, 0)
 
-    def handleCoinFlip(p: { heads = Float32, tails = Float32, edge = Float32 }): CoinType \ Random2.RandomFloat32 = {
+    def handleCoinFlip(p: { heads = Float64, tails = Float64, edge = Float64 }): CoinType \ Random2.RandomFloat64 = {
         let { heads, tails, edge } = p;
         let vF = Vector#{heads, tails, edge};
-        let totalP = Vector.foldLeft(p1 -> p2 -> p1 + p2, 0f32, vF);
-        let randNum = Random2.RandomFloat32.randRange(0f32, 1f32);
+        let totalP = Vector.foldLeft(p1 -> p2 -> p1 + p2, 0f64, vF);
+        let randNum = Random2.RandomFloat64.randRange(0f64, 1f64);
         let res_i = getRandomCoinTypeIndex(vF, randNum*totalP);
         Option.getWithDefault(unreachable!(), Vector.nth(res_i, Vector#{CoinType.Heads, CoinType.Tails, CoinType.Edge}))
     }
@@ -57,7 +57,7 @@ pub mod Chance.Coin {
     ///
     /// Middleware handler for `Coin` that acts honest untill k amount of tries, where it gets user defined weights 
     ///
-    pub def withWeightsAfterK(n: Int32, weights: {heads = Float32, tails = Float32, edge = Float32}, f: Unit -> a \ ef): a \ (ef - Coin) + Coin =
+    pub def withWeightsAfterK(n: Int32, weights: {heads = Float64, tails = Float64, edge = Float64}, f: Unit -> a \ ef): a \ (ef - Coin) + Coin =
         region rc {
             let i = Ref.fresh(rc, 0);
             run {
@@ -79,9 +79,9 @@ pub mod Chance.Coin {
             List#{f()}
         } with handler Coin {
             def flip(p, k) = 
-                let headsL = {if (p#heads > 0f32) k(CoinType.Heads) else List#{}};
-                let tailsL = {if (p#tails > 0f32) k(CoinType.Tails) else List#{}};
-                let edgeL = {if (p#edge > 0f32) k(CoinType.Edge) else List#{}};
+                let headsL = {if (p#heads > 0f64) k(CoinType.Heads) else List#{}};
+                let tailsL = {if (p#tails > 0f64) k(CoinType.Tails) else List#{}};
+                let edgeL = {if (p#edge > 0f64) k(CoinType.Edge) else List#{}};
                 headsL ::: tailsL ::: edgeL 
         }
 
@@ -98,7 +98,7 @@ pub mod Chance.Coin {
             def flip(p, k) = 
                 let r = run {
                     handleCoinFlip(p)
-                } with Random2.RandomFloat32.runWithIO;
+                } with Random2.RandomFloat64.runWithIO;
                 k(r)
         }
 
@@ -114,16 +114,16 @@ pub mod Chance.Coin {
             def flip(p, k) = 
                 let r = run {
                     handleCoinFlip(p)
-                } with Random2.RandomFloat32.runWithRandom;
+                } with Random2.RandomFloat64.runWithRandom;
                 k(r)
         }
     
     ///
     /// Runs the `Coin` effect of the given function `f`.
     ///
-    /// In other words, re-interprets the `Coin` effect using the `RandomFloat32` effect.
+    /// In other words, re-interprets the `Coin` effect using the `RandomFloat64` effect.
     ///
-    pub def runWithRandomFloat32(f: Unit -> a \ ef): a \ (ef - Coin) + Random2.RandomFloat32 = 
+    pub def runWithRandomFloat64(f: Unit -> a \ ef): a \ (ef - Coin) + Random2.RandomFloat64 = 
         run {
             f()
         } with handler Coin {

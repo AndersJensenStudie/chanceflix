@@ -216,7 +216,7 @@ pub mod Chance {
         ///
         /// Returns the result of a coinflip. `p` contains the probability of each possible outcome. 
         ///
-        def flip(p: { heads = Float32, tails = Float32, edge = Float32 }): CoinType
+        def flip(p: { heads = Float64, tails = Float64, edge = Float64 }): CoinType
     }
 
     ///

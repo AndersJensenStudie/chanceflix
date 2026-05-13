@@ -1,14 +1,7 @@
 pub mod TestCoin {
     use Chance.Coin
     use Chance.Coin.CoinType
-    use Random2.RandomFloat32
-    @Test
-    pub def testCoin01(): Unit \ Assert +IO=
-        let actual = run {
-            Chance.Coin.flip({ heads=0.3f32, tails=0.3f32, edge=0.3f32 })
-        } with Chance.Coin.runWithIO;
-        Assert.assertEq({expected = CoinType.Heads}, actual)
-
+    use Random2.RandomFloat64
 
     @Test
     pub def testCoin02(): Unit \ Assert = 
@@ -22,7 +15,7 @@ pub mod TestCoin {
     pub def testCoin03(): Unit \ IO + Assert + Abort = 
         let l = run {
             List.range(0, 10_000_000) |>
-            List.map(_ -> Chance.Coin.flip({ heads=0.3f32, tails=0.3f32, edge=0.3f32 }))
+            List.map(_ -> Chance.Coin.flip({ heads=0.3f64, tails=0.3f64, edge=0.3f64 }))
         } with Chance.Coin.runWithIO;
         let l_ = List.map(a -> List.count(b -> a == b, l))(List#{CoinType.Heads, CoinType.Tails, CoinType.Edge});
         let max = Option.getOrAbort(List.maximum(l_));
@@ -33,16 +26,16 @@ pub mod TestCoin {
     pub def testCoin04(): Unit \ IO = 
         let _ = run {
             def loop(i: Int32) = {
-                // let h = Random2.RandomFloat32.randomFloat32()*1000f32;
-                let h = 0f32;
-                let t = Random2.RandomFloat32.randomFloat32()*1000f32;
-                let e = Random2.RandomFloat32.randomFloat32()*1000f32;
+                // let h = Random2.RandomFloat64.randomFloat64()*1000f64;
+                let h = 0f64;
+                let t = Random2.RandomFloat64.randomFloat64()*1000f64;
+                let e = Random2.RandomFloat64.randomFloat64()*1000f64;
                 println("h=${h}, t=${t}, e=${e}");
                 let _ = Chance.Coin.flip({ heads=h, tails=t, edge=e });
                 if (i < 1000) {loop(i + 1)} else {()}
             };
             loop(0)
-        } with Chance.Coin.runWithIO with Random2.RandomFloat32.runWithIO;
+        } with Chance.Coin.runWithIO with Random2.RandomFloat64.runWithIO;
         ()
 
     pub def testCoin5(): Unit \ IO =
