@@ -1,4 +1,5 @@
 pub mod TestCoin {
+    use Chance.Coin
     use Chance.Coin.CoinType
     use Random2.RandomFloat32
     @Test
@@ -44,6 +45,14 @@ pub mod TestCoin {
         } with Chance.Coin.runWithIO with Random2.RandomFloat32.runWithIO;
         ()
 
+    pub def testCoin5(): Unit \ IO =
+        let _x = run {
+            let x = Coin.flipCoin();
+            let y = Coin.flipCoin();
+            if (x==y) println("You won!") else println("You loose!")
+        } with Coin.withMultipleResumption
+        with Coin.runWithIO;
+        ()
 
 
 

@@ -2,7 +2,7 @@ pub mod Chance.Coin {
     use Chance.Coin
     use Chance.Coin.CoinType
 
-    pub enum CoinType {
+    pub enum CoinType with Eq {
         case Heads
         case Tails
         case Edge
@@ -16,14 +16,14 @@ pub mod Chance.Coin {
         }
     }
     
-    instance Eq[CoinType] {
-        pub def eq(x: CoinType, y: CoinType): Bool = match (x, y) {
-            case (CoinType.Heads, CoinType.Heads) => true
-            case (CoinType.Tails, CoinType.Tails) => true
-            case (CoinType.Edge, CoinType.Edge) => true
-            case _ => false
-        }
-    }
+    // instance Eq[CoinType] {
+    //     pub def eq(x: CoinType, y: CoinType): Bool = match (x, y) {
+    //         case (CoinType.Heads, CoinType.Heads) => true
+    //         case (CoinType.Tails, CoinType.Tails) => true
+    //         case (CoinType.Edge, CoinType.Edge) => true
+    //         case _ => false
+    //     }
+    // }
     
     ///
     /// Simulates a coin flip with P[Heads]=0.5, P[Tails]=0.5 and P[Edge]=0
@@ -52,6 +52,38 @@ pub mod Chance.Coin {
         let res_i = getRandomCoinTypeIndex(vF, randNum*totalP);
         Option.getWithDefault(unreachable!(), Vector.nth(res_i, Vector#{CoinType.Heads, CoinType.Tails, CoinType.Edge}))
     }
+
+
+    ///
+    /// Middleware handler for `Coin` that acts honest untill k amount of tries, where it gets user defined weights 
+    ///
+    pub def withWeightsAfterK(n: Int32, weights: {heads = Float32, tails = Float32, edge = Float32}, f: Unit -> a \ ef): a \ (ef - Coin) + Coin =
+        region rc {
+            let i = Ref.fresh(rc, 0);
+            run {
+                f()
+            } with handler Coin {
+                def flip(p, k) = 
+                    if (Ref.get(i) >= n) k(Coin.flip(weights)) 
+                    else {
+                        Ref.transform(x -> x+1, i);
+                        k(Coin.flip(p))
+                    }
+            }
+        }
+    ///
+    /// Middleware handler that for every instance of flipping a coin, will branch for each possible outcome (accounting for weights) and return results in a list.
+    ///
+    pub def withMultipleResumption(f: Unit -> a \ ef): List[a] \ (ef - Coin) + Coin =
+        run {
+            List#{f()}
+        } with handler Coin {
+            def flip(p, k) = 
+                let headsL = {if (p#heads > 0f32) k(CoinType.Heads) else List#{}};
+                let tailsL = {if (p#tails > 0f32) k(CoinType.Tails) else List#{}};
+                let edgeL = {if (p#edge > 0f32) k(CoinType.Edge) else List#{}};
+                headsL ::: tailsL ::: edgeL 
+        }
 
     ///
     /// Runs the `Coin` effect of the given function `f`.
