@@ -71,7 +71,20 @@ pub mod Chance.Coin {
                     }
             }
         }
-    
+    ///
+    /// Middleware handler that for every instance of flipping a coin, will branch for each possible outcome (accounting for weights) and return results in a list.
+    ///
+    pub def withMultipleResumption(f: Unit -> a \ ef): List[a] \ (ef - Coin) + Coin =
+        run {
+            List#{f()}
+        } with handler Coin {
+            def flip(p, k) = 
+                let headsL = {if (p#heads > 0f32) k(CoinType.Heads) else List#{}};
+                let tailsL = {if (p#tails > 0f32) k(CoinType.Tails) else List#{}};
+                let edgeL = {if (p#edge > 0f32) k(CoinType.Edge) else List#{}};
+                headsL ::: tailsL ::: edgeL 
+        }
+
     ///
     /// Runs the `Coin` effect of the given function `f`.
     ///
