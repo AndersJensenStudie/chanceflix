@@ -1,26 +1,26 @@
 pub mod Chance.Coin {
     use Chance.Coin
-    use Chance.Coin.CoinType
+    use Chance.Coin.CoinFace
 
-    pub enum CoinType with Eq {
+    pub enum CoinFace with Eq {
         case Heads
         case Tails
         case Edge
     }
 
-    instance ToString[CoinType] {
-        pub def toString(x: CoinType): String = match x {
-            case CoinType.Heads => "Heads"
-            case CoinType.Tails => "Tails"
-            case CoinType.Edge => "Edge"
+    instance ToString[CoinFace] {
+        pub def toString(x: CoinFace): String = match x {
+            case CoinFace.Heads => "Heads"
+            case CoinFace.Tails => "Tails"
+            case CoinFace.Edge => "Edge"
         }
     }
     
-    // instance Eq[CoinType] {
-    //     pub def eq(x: CoinType, y: CoinType): Bool = match (x, y) {
-    //         case (CoinType.Heads, CoinType.Heads) => true
-    //         case (CoinType.Tails, CoinType.Tails) => true
-    //         case (CoinType.Edge, CoinType.Edge) => true
+    // instance Eq[CoinFace] {
+    //     pub def eq(x: CoinFace, y: CoinFace): Bool = match (x, y) {
+    //         case (CoinFace.Heads, CoinFace.Heads) => true
+    //         case (CoinFace.Tails, CoinFace.Tails) => true
+    //         case (CoinFace.Edge, CoinFace.Edge) => true
     //         case _ => false
     //     }
     // }
@@ -28,29 +28,29 @@ pub mod Chance.Coin {
     ///
     /// Simulates a coin flip with P[Heads]=0.5, P[Tails]=0.5 and P[Edge]=0
     ///
-    pub def flipCoin(): CoinType \ Coin = 
+    pub def flipCoin(): CoinFace \ Coin = 
         flip({ heads=0.5f64, tails=0.5f64, edge=0f64 })
 
     ///
     /// Simulates a coin flip with P[Heads]=0.45, P[Tails]=0.45 and P[Edge]=0.1
     ///
-    pub def flipCoinWithEdge(): CoinType \ Coin =
+    pub def flipCoinWithEdge(): CoinFace \ Coin =
         flip({ heads=0.45f64, tails=0.45f64, edge=0.1f64 })
 
-    def getRandomCoinTypeIndex(v: Vector[Float64], r: Float64): Int32 = 
+    def getRandomCoinFaceIndex(v: Vector[Float64], r: Float64): Int32 = 
         def loop(loop_r: Float64, loop_i: Int32): Int32 = {
             let loop_r_ = loop_r - Option.getWithDefault(0f64, Vector.nth(loop_i, v));
             if (loop_r_ <= 0f64) loop_i else loop(loop_r_, loop_i+1)
         };
         loop(r, 0)
 
-    def handleCoinFlip(p: { heads = Float64, tails = Float64, edge = Float64 }): CoinType \ Random2.RandomFloat64 = {
+    def handleCoinFlip(p: { heads = Float64, tails = Float64, edge = Float64 }): CoinFace \ Random2.RandomFloat64 = {
         let { heads, tails, edge } = p;
         let vF = Vector#{heads, tails, edge};
         let totalP = Vector.foldLeft(p1 -> p2 -> p1 + p2, 0f64, vF);
         let randNum = Random2.RandomFloat64.randRange(0f64, 1f64);
-        let res_i = getRandomCoinTypeIndex(vF, randNum*totalP);
-        Option.getWithDefault(unreachable!(), Vector.nth(res_i, Vector#{CoinType.Heads, CoinType.Tails, CoinType.Edge}))
+        let res_i = getRandomCoinFaceIndex(vF, randNum*totalP);
+        Option.getWithDefault(unreachable!(), Vector.nth(res_i, Vector#{CoinFace.Heads, CoinFace.Tails, CoinFace.Edge}))
     }
 
 
@@ -79,9 +79,9 @@ pub mod Chance.Coin {
             List#{f()}
         } with handler Coin {
             def flip(p, k) = 
-                let headsL = {if (p#heads > 0f64) k(CoinType.Heads) else List#{}};
-                let tailsL = {if (p#tails > 0f64) k(CoinType.Tails) else List#{}};
-                let edgeL = {if (p#edge > 0f64) k(CoinType.Edge) else List#{}};
+                let headsL = {if (p#heads > 0f64) k(CoinFace.Heads) else List#{}};
+                let tailsL = {if (p#tails > 0f64) k(CoinFace.Tails) else List#{}};
+                let edgeL = {if (p#edge > 0f64) k(CoinFace.Edge) else List#{}};
                 headsL ::: tailsL ::: edgeL 
         }
 

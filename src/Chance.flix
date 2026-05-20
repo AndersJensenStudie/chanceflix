@@ -2,7 +2,7 @@ pub mod Chance {
     use Chance.Phone
     use Chance.unique
     use Chance.RCreditCardType.CreditCardType
-    use Chance.Coin.CoinType
+    use Chance.Coin.CoinFace
     
     ///
     /// An effect used to simulate rolling a die.
@@ -216,7 +216,7 @@ pub mod Chance {
         ///
         /// Returns the result of a coinflip. `p` contains the probability of each possible outcome. 
         ///
-        def flip(p: { heads = Float64, tails = Float64, edge = Float64 }): CoinType
+        def flip(p: { heads = Float64, tails = Float64, edge = Float64 }): CoinFace
     }
 
     ///
