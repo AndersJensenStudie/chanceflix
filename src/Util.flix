@@ -44,4 +44,28 @@ pub mod Util {
 
     pub def exp(x: Float64): Float64 = 
         JMath.exp(x)
+
+    pub enum BinaryTree[a] {
+        case Node(Util.BinaryTree[a], Util.BinaryTree[a])
+        case Leaf(a)
+    }
+
+    instance ToString[BinaryTree[a]] with ToString[a] {
+        pub def toString(x: BinaryTree[a]): String = 
+            def rec(n: BinaryTree[a], i: Int32): String = 
+                match n {
+                    case BinaryTree.Leaf(s) => "${s}"
+                    case BinaryTree.Node(l, r) => 
+                        "Node \n"
+                        + String.repeat(i + 1, "  ") + "⤷ ${rec(l, i + 1)} \n" 
+                        + String.repeat(i + 1, "  ") + "⤷ ${rec(r, i + 1)}"
+                };
+            rec(x, 0)
+    }
+    
+    pub def toString(x: BinaryTree[a]): String with ToString[a] = 
+        match x {
+            case BinaryTree.Leaf(s) => "${s}"
+            case BinaryTree.Node(l, r) => "Node(${l}, ${r})"
+        }
 }

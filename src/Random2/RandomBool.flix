@@ -21,6 +21,22 @@ pub mod Random2.RandomBool {
                 k(getRandomBoolWithRandom())
         }
 
+    pub def runWithList(f: Unit -> a \ ef): List[a] \ ef - RandomBool = 
+        run {
+            f() :: Nil
+        } with handler RandomBool {
+            def randomBool(k) = 
+                k(true) ::: k(false)
+        }
+
+    pub def runWithTree(f: Unit -> a \ ef): Util.BinaryTree[a] \ ef - RandomBool = 
+        run {
+            Util.BinaryTree.Leaf(f())
+        } with handler RandomBool {
+            def randomBool(k) = 
+                Util.BinaryTree.Node(k(true), k(false))
+        }
+
     def getRandomBoolWithRandom(): Bool \ Random2 = 
         let byte = Random2.randomByte();
         (Int8.getBit(pos = 0, byte) == 1)
