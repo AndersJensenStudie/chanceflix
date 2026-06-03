@@ -38,3 +38,7 @@ def getRandomInt64WithRandom(): Int64 \ Random2 =
         |> (tmp) -> Vector.zip(Vector.range(0, Vector.length(tmp)), tmp)
         |> Vector.map(match (i, b) -> Int64.leftShift(b, i * 8))
         |> Vector.foldLeft(Int64.bitwiseOr, 0i64)
+
+
+def hof(f: a -> b \ {Sys.Console, Logger} - ef): b = 
+    ???

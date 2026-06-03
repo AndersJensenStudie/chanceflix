@@ -140,9 +140,30 @@ pub mod Random2 {
         }
 
     ///
-    /// runs the `Random` effect of the given function `f` using the java `SecureRandom`-class
+    /// Runs the `Random` effect of the given function `f` using the java `SecureRandom`-class
     ///
     /// May block while entropy is gathered for seed. 
     ///
     pub def runWithSecureRandom(f: Unit -> a \ ef): a \ (ef - Random2) + IO = handleWithSecureRandom(f)() 
+
+    ///
+    /// Runs all `Random` effects of the given function `f`.
+    ///
+    /// In other words, re-interprets all effects of `Random` and
+    /// its submodules with `IO`
+    ///
+    pub def runAllRandomWithIO(f: Unit -> a \ ef)
+        : a \ (ef - Random2 - RandomBool - RandomFloat32 - RandomFloat64 
+            - RandomInt8 - RandomInt16 - RandomInt32 - RandomInt64) + IO = 
+        run {
+            f()
+        } with RandomBool.runWithRandom
+        with RandomFloat32.runWithRandom
+        with RandomFloat64.runWithRandom
+        with RandomInt8.runWithRandom
+        with RandomInt16.runWithRandom
+        with RandomInt32.runWithRandom
+        with RandomInt64.runWithRandom
+        with Random2.runWithIO
+        
 }

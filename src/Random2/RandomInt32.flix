@@ -48,6 +48,25 @@ pub mod Random2.RandomInt32 {
                 rec(k, min)
         }
 
+    pub def runWithTestRangePar(property: a -> Bool \ {}, min: Int32, max: Int32, f: Unit -> a \ RandomInt32): Bool \ {} = 
+        @Tailrec
+        def rec(c, m, ma) = {
+            if (m == ma) {
+                true
+            } else if (c(m)) {
+                rec(c, m + 1, ma)
+            } else {
+                false
+            }
+        };
+        run {
+           property(f())
+        } with handler RandomInt32 {
+            def randomInt32(k) = 
+                par (b1 <- rec(k, min, max / 2); b2 <- rec(k, max / 2 + 1, max))
+                    yield b1 and b2
+        }
+
     pub def randomInts(n: Int32): List[Int32] \ RandomInt32 = 
         List.range(0, n)
         |> List.map(_ -> RandomInt32.randomInt32())

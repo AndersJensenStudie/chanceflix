@@ -1,7 +1,7 @@
 pub mod Chance.Normal {
     use Math.Random
     use Chance.Normal
-    use Chance.Normal.getNormalFloat64
+    use Chance.Normal.{getNormalFloat64, normal}
     use Random2.RandomFloat64
     use Random2.RandomFloat64.randomFloat64
 
@@ -64,6 +64,14 @@ pub mod Chance.Normal {
     /// Returns random numbers with probability of a standard normal distribution.
     ///
     pub def standardNormal(): Float64 \ Normal = 
-        Chance.Normal.normal(0f64, 1f64)
+        normal(0f64, 1f64)
+
+    pub def runWithNormal(mean: Float64, dev: Float64, f: Unit -> a \ ef): a \ ef - Random2.RandomFloat64 + Normal = 
+        run {
+            f()
+        } with handler Random2.RandomFloat64 {
+            def randomFloat64(k) = 
+                k(normal(mean, dev))
+        }
 
 }

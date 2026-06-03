@@ -1,7 +1,7 @@
 mod TestRandomInt32 {
     use Assert.assertTrue
     use Random2.RandomInt32
-    use Random2.RandomInt32.{randomInt32, randRange, runWithIO, runWithRange, runWithTestRange}
+    use Random2.RandomInt32.{randomInt32, randRange, runWithIO, runWithRange, runWithTestRange, runWithTestRangePar}
     @Test
     def testGetRandomInt32WithRandom(): Unit \ Assert + IO =
         let r = run {
@@ -90,4 +90,27 @@ mod TestRandomInt32 {
         run {
             randomInt32()
         } with runWithTestRange(neg, -1_000, 1_000)
+
+
+    @Test 
+    def parse01(): Unit \ Assert = 
+        (run {
+            randomInt32()
+        } with runWithRange(-1000, 1000))
+        |> List.forEach(x -> Assert.assertEq(expected = Ok(x), Int32.parse(10, "${x}")))
+
+    @Test 
+    def parse02(): Unit \ Assert = 
+        let lst = run {
+            randomInt32()
+        } with runWithRange(-1000, 1000);
+        lst |> List.forEach(x -> Assert.assertEq(expected = Ok(x), Int32.parse(10, "${x}")))
+
+    @Test 
+    pub def parse03(): Unit \ Assert = 
+        let pbt = x -> Ok(x) == Int32.parse(10, "${x}");
+        let b = run {
+            randomInt32()
+        } with runWithTestRangePar(pbt, Int32.minValue(), Int32.maxValue());
+        assertTrue(b)
 }
