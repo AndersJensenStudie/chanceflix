@@ -109,7 +109,7 @@ pub mod Chance.Dice {
     ///
     /// In other words, re-interprets the `Dice` effect using the `RandomInt32` effect.
     ///
-    pub def runWithRandomI32(f: Unit -> a \ ef) : a \ (ef - Dice) + Random2.RandomInt32 =
+    pub def runWithRandomInt32(f: Unit -> a \ ef) : a \ (ef - Dice) + Random2.RandomInt32 =
         run {
             f()
         } with handler Dice {

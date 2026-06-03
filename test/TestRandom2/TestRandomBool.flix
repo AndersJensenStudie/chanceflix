@@ -48,6 +48,43 @@ mod TestRandomBool {
         let s = loop(ls, Nil);
         if (List.sum(s) == t) s else Nil
 
+    def subsetSum(ls: List[Int32], t: Int32): List[Int32] \ Random2.RandomBool = 
+        let l = ls |> List.filter(_ -> randomBool());
+        if ((l |> List.sum) == t) {
+            l
+        } else {
+            Nil
+        }
+
+    def subsetSum2(subset: List[Int32], t: Int32): List[Int32] = 
+        if (List.sum(subset) == t) {
+            subset
+        } else {
+            Nil
+        }
+
+    def priceFor(isMember: Bool, hasPromo: Bool): Int32 = 
+        let price = 100;
+        let membersDiscount = if (isMember) { 30 } else { 0 };
+        let promoDiscount = if (hasPromo) { 80 } else { 0 };
+        price - membersDiscount - promoDiscount
+
+    @Test
+    pub def testPriceFor01(): Unit \ IO = 
+        let res = run {
+            priceFor(randomBool(), randomBool())
+        } with runWithTree;
+        println(res)
+
+    pub def testSubsetSum(): Unit \ IO = 
+        let ls = List#{1,2,3};
+        let target = 6;
+        let tree = run {
+            let subset = ls |> List.filter(_ -> randomBool());
+            subsetSum2(subset, target)
+        } with runWithTree;
+        println(tree)
+
     pub def testList01(): Unit \ IO = 
         let ls = run {
             programWithChoices()
@@ -87,6 +124,13 @@ mod TestRandomBool {
     pub def testTree03(): Unit \ IO = 
         let tr = run {
             subsetSumNonRec(List#{1, 2}, 3)
+        } with runWithTree;
+        println(tr)
+
+    // does not work in Flix 0.72. Will work in 0.73 🤞
+    pub def testTree04(): Unit \ IO = 
+        let tr = run {
+            subsetSum(List#{1, 2}, 3)
         } with runWithTree;
         println(tr)
 

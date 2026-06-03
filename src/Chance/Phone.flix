@@ -46,7 +46,7 @@ pub mod Chance.Phone {
     def replaceHash(fmt: String): String \ RandomInt32 =
         fmt |> String.map(c -> {
             if (c == '#') {
-                RandomInt32.randRange(0, 9) |> Int32.toString |> String.charAt(0)
+                RandomInt32.randRange(0, 10) |> Int32.toString |> String.charAt(0)
             } else c
         })
 

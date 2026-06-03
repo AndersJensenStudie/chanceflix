@@ -22,6 +22,51 @@ pub mod Random2.RandomInt32 {
                 k(getRandomInt32WithRandom())
         }
 
+    pub def runWithRange(min: Int32, max: Int32, f: Unit -> a \ ef): List[a] \ (ef - RandomInt32) = 
+        run {
+            f() :: Nil
+        } with handler RandomInt32 {
+            def randomInt32(k) = 
+                List.range(min, max)
+                |> List.flatMap(k)
+        }
+
+    pub def runWithTestRange(property: a -> Bool \ ef2, min: Int32, max: Int32, f: Unit -> a \ ef1): Unit \ (ef1 - RandomInt32) + Assert + ef2 = 
+        @Tailrec
+        def rec(c, m) = {
+            if (m == max) {
+                ()
+            } else {
+                c(m);
+                rec(c, m + 1)
+            }
+        };
+        run {
+            Assert.assertTrue(property(f()))
+        } with handler RandomInt32 {
+            def randomInt32(k) = 
+                rec(k, min)
+        }
+
+    pub def runWithTestRangePar(property: a -> Bool \ {}, min: Int32, max: Int32, f: Unit -> a \ RandomInt32): Bool \ {} = 
+        @Tailrec
+        def rec(c, m, ma) = {
+            if (m == ma) {
+                true
+            } else if (c(m)) {
+                rec(c, m + 1, ma)
+            } else {
+                false
+            }
+        };
+        run {
+           property(f())
+        } with handler RandomInt32 {
+            def randomInt32(k) = 
+                par (b1 <- rec(k, min, max / 2); b2 <- rec(k, max / 2 + 1, max))
+                    yield b1 and b2
+        }
+
     pub def randomInts(n: Int32): List[Int32] \ RandomInt32 = 
         List.range(0, n)
         |> List.map(_ -> RandomInt32.randomInt32())
@@ -51,4 +96,5 @@ pub mod Random2.RandomInt32 {
             };
             rec()
         }
+
 }
