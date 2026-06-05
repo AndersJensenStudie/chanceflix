@@ -1,0 +1,65 @@
+@startuml newRandom
+left to right direction
+hide empty members
+skinparam shadowing false
+skinparam nodesep 18
+skinparam ranksep 18
+
+package "Random" as RandomPackage {
+    hide empty members
+
+    interface "Random" as Random <<Effect>> {
+        {abstract} +def randomInt8(): Int8
+    }
+
+    class RandomHandlers <<Module>> {
+        #runWithIO \ ef - Random + IO
+        #runWithSeed \ ef - Random
+        #runWithSecureRandom \ ef - Random
+    }
+
+    package "RandomInt32" as RandomInt32Package {
+        hide empty members
+
+        interface "RandomInt32" as RandomInt32 <<Effect>> {
+            {abstract} +def randomInt32(): Int32
+        }
+
+        class RandomInt32Handlers <<Module>> {
+            #runWithIO \ ef - RandomInt32 + IO
+            #runWithRandom \ ef - RandomInt32 + Random
+        }
+        class RandomInt32Defs <<Module>> {
+            +randRange(Int32, Int32): Int32 \ RandomInt32
+        }
+    }
+
+    package "RandomFloat64" as RandomFloat64Package {
+        hide empty members
+
+        interface "RandomFloat64" as RandomFloat64 <<Effect>> {
+            {abstract} +def randomFloat64(): Float64
+        }
+
+        class RandomFloat64Handlers <<Module>> {
+            #runWithIO \ ef - RandomFloat64 + IO
+            #runWithRandom \ ef - RandomFloat64 + Random
+        }
+        class RandomFloat64Defs <<Module>> {
+            +randRange(Float64, Float64): Float64 \ RandomFloat64
+        }
+    }
+}
+'relations
+RandomHandlers ..|> Random : "handles"
+
+'randomi32
+RandomInt32Handlers ..|> RandomInt32 : "handles"
+RandomInt32Handlers ..> Random : "invokes"
+RandomInt32Defs ..> RandomInt32 : "invokes"
+
+'randomf64
+RandomFloat64Handlers ..|> RandomFloat64 : "handles"
+RandomFloat64Handlers ..> Random : "invokes"
+RandomFloat64Defs ..> RandomFloat64 : "invokes"
+@enduml

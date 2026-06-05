@@ -1,0 +1,23 @@
+@startuml oldRandom
+left to right direction
+hide empty members
+skinparam shadowing false
+skinparam nodesep 18
+skinparam ranksep 18
+
+package "Random" as RandomPackage {
+    hide empty members
+
+    interface "Random" as Random <<Effect>> {
+        {abstract} +def randomInt64(): Int64
+        {abstract} +def randomFloat64(): Float64
+    }
+
+    class Handlers <<Module>> {
+        #runWithIO \ ef - Random + IO
+        #runWithSeed \ ef - Random
+    }
+}
+'relations
+Handlers ..|> Random : "handles"
+@enduml
